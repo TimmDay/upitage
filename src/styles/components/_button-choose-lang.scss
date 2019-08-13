@@ -1,0 +1,69 @@
+.choose-lang{
+  border: none;
+  border-radius: 50%;
+  padding: 0;
+  position: relative;
+	top: 0;
+	left: 0;
+	height: 12rem;
+  width: 12rem;
+  overflow: hidden;
+}
+
+.choose-lang:focus {
+  box-shadow: 0 0 5pt 4pt green;
+  -moz-outline-radius: 50%;
+  // outline: 3px solid #fff;
+  outline: none; //TODO: this is bad, need to find a circular alternative
+}
+
+// .choose-lang:active {
+//   box-shadow: 0 0 5pt 4pt red;
+//   -moz-outline-radius: 50%;
+// }
+.choose-lang h2{
+  text-align: center;
+  font-weight: 300;
+  font-size: 2.5rem;
+	position: absolute;
+	bottom: .8rem;
+	width: 100%;
+	color: #484c61;
+  transition: transform 0.35s, color 0.35s;
+  opacity: 0;
+}
+.choose-lang figcaption::before { //darkened background
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: linear-gradient(to bottom, rgba(72,76,97,0) 0%, rgba(72,76,97,0.8) 75%);
+	content: '';
+  opacity: 0;
+  transition: opacity 0.35s, transform 0.35s;
+}
+.choose-lang img {
+  height: 12rem;
+  width: 12rem;
+  opacity: 0.6;
+  -webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
+  transition: opacity 0.35s, transform 0.35s;
+  // -webkit-transform: translate3d(-40px,0, 0);
+  // transform: translate3d(-40px,0,0);
+  transform-origin: 50% 50%;
+}
+.choose-lang:hover h2 {
+  color: #fff;
+  opacity: 1;
+	transform: translate3d(0,-1.5rem,0)// translate3d(0,-40px,0);
+}
+.choose-lang:hover figcaption::before ,
+.choose-lang:hover p {
+	opacity: 1;
+	transform: translate3d(0,0,0);
+}
+.choose-lang:hover img{
+  transform-origin: 50% 50%;
+  transform: rotate(5deg);
+}

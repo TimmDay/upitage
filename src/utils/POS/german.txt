@@ -1,0 +1,1 @@
+Die_VB Katze_NNP lief_NN um_NN den_NN Baum_NNP herum_NN ._.

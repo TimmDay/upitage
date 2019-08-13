@@ -1,0 +1,27 @@
+.restaurant-list-item {
+  position: relative;
+}
+.restaurant-list-item .icon-action {
+  background: none;
+  bottom: $s-size;
+  position: absolute;
+  right: $s-size;
+  &:hover {
+    background: $dark-blue;
+  }
+}
+
+.highlighted-restaurant {
+  background: $dark-blue;
+  color: #fff;
+}
+.highlighted-restaurant span {
+  color: #fff;
+}
+.highlighted-restaurant h3 {
+  color: $red-marker;
+}
+.highlighted-restaurant:hover {
+  background: $dark-blue;
+  color: #fff;
+}

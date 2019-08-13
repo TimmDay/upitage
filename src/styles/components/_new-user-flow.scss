@@ -1,0 +1,30 @@
+.new-user-flow {
+  font-family: cursive, 'Noto Sans HK', sans-serif;
+  font-size: 3rem;
+  text-align: center;
+  margin-bottom: $l-size;
+}
+
+.new-user-flow .container {
+  display: flex;
+  justify-content: space-around;
+  flex-flow: wrap;
+}
+.new-user-flow__btn {
+  margin: $l-size*2 0;
+
+  background: $dark-blue;
+  border-radius: 5px;
+  color: #fff;
+  font-size: 1.8rem;
+  letter-spacing: 1rem;
+  text-indent: 1rem;
+  text-align: center;
+  // width: 8.5rem;
+  padding: $m-size $l-size;
+
+}
+
+.new-user-flow p {
+  margin: $l-size 0;
+}

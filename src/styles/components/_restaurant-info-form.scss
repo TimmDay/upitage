@@ -1,0 +1,40 @@
+.restaurant-info-form {
+  text-align: center;
+}
+
+.restaurant-info-form div{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.restaurant-info-form input {
+  border: 0;
+  border-bottom: 1px solid $dark-blue;
+  color: $dark-blue;
+  font-style: italic;
+  margin: 0 $s-size $m-size $s-size;
+  max-width: 15rem;
+  text-align: center;
+}
+
+.restaurant-info-form input::placeholder {
+  font-size: 1.2rem;
+}
+
+.restaurant-info-form button {
+  background: $dark-blue;
+  color: #fff;
+  border-radius: 5px;
+  margin-bottom: $m-size;
+  outline: 0;
+  padding: $s-size $m-size;
+  transition: 0.3s;
+}
+.restaurant-info-form button:hover{
+  background: #fff;
+  color: $dark-blue;
+}
+
+.restaurant-info-form p {
+  font-style: cursive; //TODO: nicer font
+}

@@ -1,0 +1,1 @@
+Tim_NNP Day_NNP has_VBZ made_VBN this_DT damn_JJ thing_NN work_NN !_.

@@ -1,0 +1,24 @@
+.restaurant-list-filters {
+  align-items: center;
+  display: flex;
+  justify-content: right;
+}
+
+.restaurant-list-filters input {
+  background: none;
+  border: 0;
+  border-bottom: 1px solid $dark-blue;
+  color: $dark-blue;
+  font-style: italic;
+  max-width: 20rem;
+  text-align: center;
+}
+
+.restaurant-list-filters .icon-action {
+  background: $dark-blue;
+  color: #fff;
+  &:hover {
+    background: $red-marker;
+    color: #000;
+  }
+}

@@ -1,0 +1,67 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render Header correctly 1`] = `
+<header
+  className="header"
+>
+  <div
+    className="content-container"
+  >
+    <div
+      className="header__content"
+    >
+      <Link
+        className="header__title"
+        replace={false}
+        to="/main"
+      >
+        <h1>
+          <FontAwesomeIcon
+            border={false}
+            className=""
+            fixedWidth={false}
+            flip={null}
+            icon="hamburger"
+            inverse={false}
+            listItem={false}
+            mask={null}
+            pull={null}
+            pulse={false}
+            rotation={null}
+            size={null}
+            spin={false}
+            symbol={false}
+            title=""
+            transform={null}
+          />
+            Tucker Tracker  
+          <FontAwesomeIcon
+            border={false}
+            className=""
+            fixedWidth={false}
+            flip={null}
+            icon="coffee"
+            inverse={false}
+            listItem={false}
+            mask={null}
+            pull={null}
+            pulse={false}
+            rotation={null}
+            size={null}
+            spin={false}
+            symbol={false}
+            title=""
+            transform={null}
+          />
+        </h1>
+      </Link>
+      <button
+        className="button button--link"
+        onClick={[Function]}
+      >
+        Logout
+      </button>
+    </div>
+  </div>
+</header>
+`;
