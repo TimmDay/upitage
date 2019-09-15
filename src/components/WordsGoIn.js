@@ -1,5 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { storeInputText } from '../actions/inputText'
+import sentenceSplitter from '../utils/sentence-segmenter'
 
 
 class WordsGoIn extends React.Component {
@@ -15,97 +17,85 @@ class WordsGoIn extends React.Component {
   }
 
   handleHighlightVerbs = () => {
-    console.log('highlight verbs');
-    const tagsArr = document.getElementsByClassName('wgi__tags');
-
-    let vMatch = []
-    for (let i=0; i<tagsArr.length; i++) {
-      if(tagsArr[i].innerHTML[1] === 'V') { //they all start with space, so 1 not 0
-        vMatch.push(i)
-      }
-    }
-    
-    const wordsArr = document.getElementsByClassName('wgi__raw-text');
-    vMatch.forEach(match => {
-      wordsArr[match].style = 'background:red;'
+    let verbIndices = [] //store indices
+    this.state.arrTags.forEach((tag, i) => {
+      if (tag[0] == 'V') verbIndices.push(i)
     })
+    const wordsArr = document.getElementsByClassName('wgi__raw-text');
+    verbIndices.forEach(match => wordsArr[match].style = 'background:red;')
   }
-
 
   handleHighlightNouns = () => {
-    console.log('highlight nouns');
-    const tagsArr = document.getElementsByClassName('wgi__tags');
-
-    let vMatch = []
-    for (let i=0; i<tagsArr.length; i++) {
-      if(tagsArr[i].innerHTML[1] === 'N') { //they all start with space, so 1 not 0
-        vMatch.push(i)
-      }
-    }
-    
+    let nounIndices = [] //store indices
+    this.state.arrTags.forEach((tag, i) => {
+      if (tag[0] == 'N') nounIndices.push(i)
+    })
     const wordsArr = document.getElementsByClassName('wgi__raw-text');
-    vMatch.forEach(match => {
-      wordsArr[match].style = 'background:green;'
-    })
+    nounIndices.forEach(match => wordsArr[match].style = 'background:green;')
   }
 
-
-  handleSubmitSourceForPOS = (evt) => {
+  // full text (use request body)
+  handleSubmitSourceForPOS = async (evt) => {
     evt.preventDefault();
-    console.log('submitting');
-
-    this.setState({source: this.state.textBody})
-    //TODO:
-    // clear text area
-    // confirmation modal, then push to next page
-
-    const word = this.state.textBody;
-    console.log(word);
+    await this.setState({source: this.state.textBody})
+    const text = this.state.textBody;
+    console.log(text)
     
-    // TODO: extract out into utils file?
-    fetch('http://localhost:3000/treated-text?word=' + word)
-    .then(res => {
-      res.json()
-      .then(data => {
-        let words = [];
-        let tags = [];
-        data.tag.split(' ').forEach(wordAndTag => {
-          const bits = wordAndTag.split('_')
-          words.push(bits[0])
-          tags.push(bits[1])
-        })
-        console.log(words);
-        console.log(tags);
+    const sents = sentenceSplitter(text)
 
-        this.setState({ 
-          taggedText: data.tag,
-          rawText: words,
-          tags: tags
-        })
+    let arrWords = [], arrTags = [];
+    let arrWordsAndTags = []
 
-        // TODO: also to redux store
+    for (let sent = 0; sent<sents.length; sent++) {
+      const res = await fetch('http://localhost:3000/postag-text', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        redirect: 'follow',
+        body: JSON.stringify({text: sents[sent]})
       })
+      const data = await res.json()
+      data.tag.split(' ').forEach(wordAndTag => {
+        arrWordsAndTags.push(wordAndTag)
+        const bits = wordAndTag.split('_')
+        arrWords.push(bits[0])
+        arrTags.push(bits[1])
+      })
+    }
+
+    await this.setState({ 
+      taggedText: arrWordsAndTags,
+      arrWords: arrWords,
+      arrTags: arrTags
     })
+    // TODO: also to redux store
+    const obj = {
+      tagsAndWords: arrWordsAndTags,
+      words: arrWords,
+      tags: arrTags,
+      sentences: sents
+    }
+    console.log(obj)
+    
+    this.props.storeInputText(obj)
+
   }
 
-  handleHoverWord = (evt) => {
-    console.log(evt)
-    console.log(evt.target)
-    console.log(evt.target.innerText)
+  // handleHoverWord = (evt) => {
+  //   console.log(evt)
+  //   console.log(evt.target)
+  //   console.log(evt.target.innerText)
 
+  //   const word = evt.target.innerText;
+  //   console.log('WORD ROM COMP: ', word)
 
-    const word = evt.target.innerText;
-    console.log('WORD ROM COMP: ', word)
-
-
-    fetch('http://localhost:3000/translated-text?word=' + word)
-    .then(res => {
-      res.json()
-      .then(data => {
-        console.log(data);
-      })
-    })
-  }
+  //   fetch('http://localhost:3000/translated-text?word=' + word, { mode: 'no-cors' })
+  //   .then(res => {
+  //     res.json()
+  //     .then(data => {
+  //       console.log(data);
+  //     })
+  //   })
+  // }
 
   render () {
     return (
@@ -122,30 +112,17 @@ class WordsGoIn extends React.Component {
 
         {/* TODO: map a span for each word in here. can then target spans by index, matching POS to textBody for highlighting */}
         {
-          !this.state.rawText ? (
+          !this.state.arrWords ? (
             <p>no source text</p>
           ) : (
-            // this.state.rawText.map(w => (
-            //   <span key={`key${w}`}>{`${w} `}</span>
-            // )
-            // <span>{this.state.rawText}</span>
             <div>
             <p>
-            {this.state.rawText.map((w,i) => (
+            {this.state.arrWords.map((w,i) => (
               <span
                 className='wgi__raw-text'
-                onMouseEnter={this.handleHoverWord}
-                onMouseLeave={this.handleHoverWordLeave}
+                // onMouseEnter={this.handleHoverWord}
+                // onMouseLeave={this.handleHoverWordLeave}
                 key={`key${w}${i}`}
-              >{` ${w}`}</span>
-            ))}
-            </p>
-
-            <p>
-            {this.state.tags.map((w,i) => (
-              <span
-                key={`key${w}${i}`}
-                className='wgi__tags'
               >{` ${w}`}</span>
             ))}
             </p>
@@ -153,20 +130,16 @@ class WordsGoIn extends React.Component {
           )
         }
 
-      {/* {this.state.rawText && <p>{this.state.rawText}</p>} */}
-
       <button 
         disabled={!this.state.taggedText}
         onClick={this.handleHighlightVerbs}
-      >
-        select verbs
+      >select verbs
       </button>
 
       <button 
         disabled={!this.state.taggedText}
         onClick={this.handleHighlightNouns}
-      >
-        select nouns
+      >select nouns
       </button>
 
 
@@ -184,37 +157,8 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => ({
+  storeInputText: obj => dispatch(storeInputText(obj)),
    
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(WordsGoIn);
-
-
-// import React, { useState } from 'react';
-
-// const WordsGoIn = () => {
-//   const [source, setSource] = useState('');
-//   const [textBody, setTextBody] = useState(''); //for the text area state
-
-//   const submitSource = (evt) => {
-//     evt.preventDefault();
-//     setSource(source)
-//     // clear text area
-//     // confirmation modal, then push to next page
-//   }
-
-//   return (
-//     <div>
-//       <h1>Drop some Relevant Language here</h1>
-//       <form onSubmit={submitSource}>
-//         <textarea 
-//           value={textBody}
-//           onChange={(evt) => setTextBody(evt.target.value)}
-//         />
-//         <button>submit text</button>
-//       </form>
-//     </div>
-//   )
-// };
-
-// export default WordsGoIn;

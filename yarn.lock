@@ -2562,10 +2562,10 @@ domutils@^1.5.1:
     dom-serializer "0"
     domelementtype "1"
 
-dotenv@^8.0.0:
-  version "8.0.0"
-  resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-8.0.0.tgz#ed310c165b4e8a97bb745b0a9d99c31bda566440"
-  integrity sha512-30xVGqjLjiUOArT4+M5q9sYdvuR4riM6yK9wMcas9Vbp6zZa+ocC9dp6QoftuhTPhFAiLK/0C5Ni2nou/Bk8lg==
+dotenv@^8.1.0:
+  version "8.1.0"
+  resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-8.1.0.tgz#d811e178652bfb8a1e593c6dd704ec7e90d85ea2"
+  integrity sha512-GUE3gqcDCaMltj2++g6bRQ5rBJWtkWTmqmD0fo1RnnMuUqHNCt2oTPeDnS9n6fKYvlhn7AeBkb38lymBtWBQdA==
 
 ducky@2.7.0:
   version "2.7.0"
@@ -8694,6 +8694,44 @@ window-size@0.1.0:
   version "0.1.0"
   resolved "https://registry.yarnpkg.com/window-size/-/window-size-0.1.0.tgz#5438cd2ea93b202efa3a19fe8887aee7c94f9c9d"
   integrity sha1-VDjNLqk7IC76Ohn+iIeu58lPnJ0=
+
+wink-distance@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/wink-distance/-/wink-distance-2.0.0.tgz#3ac47cb3819c56bb1be04d23ddd21e06471bf688"
+  integrity sha512-xJn1rbT/I23q0CZjyvQzzax2XAnCWsOcxowKJheiDflYawF7vG1uN1mDeLy0gmgw3IqRwg0HX1I/9NUW+purqg==
+  dependencies:
+    wink-helpers "^2.0.0"
+    wink-jaro-distance "^2.0.0"
+
+wink-helpers@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/wink-helpers/-/wink-helpers-2.0.0.tgz#0aec1a2bddd0adcf9e6deb3bf7fa70c7e92dbe5c"
+  integrity sha512-I/ZzXrHcNRXuoeFJmp2vMVqDI6UCK02Tds1WP4kSGAmx520gjL1BObVzF7d2ps24tyHIly9ngdB2jwhlFUjPvg==
+
+wink-jaro-distance@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/wink-jaro-distance/-/wink-jaro-distance-2.0.0.tgz#96bc3fd69ec5dd48ee74055217f0dcd313148049"
+  integrity sha512-9bcUaXCi9N8iYpGWbFkf83OsBkg17r4hEyxusEzl+nnReLRPqxhB9YNeRn3g54SYnVRNXP029lY3HDsbdxTAuA==
+
+wink-nlp-utils@^2.0.5:
+  version "2.0.5"
+  resolved "https://registry.yarnpkg.com/wink-nlp-utils/-/wink-nlp-utils-2.0.5.tgz#d344193ce8ae01b46face1495ad49f0b759bee92"
+  integrity sha512-/vUHYmtAyC9+xwkymqVFS9BG9C+45ixhvfeXW29nH8Xc3gaxR8F8U0TQHvOq+1b6ajHQZ6Z0eyukRZf1gXqBJQ==
+  dependencies:
+    wink-distance "^2.0.0"
+    wink-helpers "^2.0.0"
+    wink-porter2-stemmer "^2.0.0"
+    wink-tokenizer "^5.2.1"
+
+wink-porter2-stemmer@^2.0.0:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/wink-porter2-stemmer/-/wink-porter2-stemmer-2.0.1.tgz#f7680e584e2b9b4c44766642325671662e98f44a"
+  integrity sha512-0g+RkkqhRXFmSpJQStVXW5N/WsshWpJXsoDRW7DwVkGI2uDT6IBCoq3xdH5p6IHLaC6ygk7RWUsUx4alKxoagQ==
+
+wink-tokenizer@^5.2.1:
+  version "5.2.1"
+  resolved "https://registry.yarnpkg.com/wink-tokenizer/-/wink-tokenizer-5.2.1.tgz#3c53fb6fb18dbf75b7da69f1808c0a447721963f"
+  integrity sha512-8WwUToAUvioN6zYCAgtgmqLZEgkLs9whJMVsd/l0NbWynRCz2HreP/YF9OzRS48H4kLIQCP0//ZvGw1cwVz2sg==
 
 wordwrap@0.0.2:
   version "0.0.2"

@@ -1,3 +1,25 @@
+you must start the server AND the frontend
+yarn start (server)
+yarn run dev-server (frontend)
+
+TEST
+node src/utils/POS/stanford-pos-english
+
+// for POS tagging. java jar wrapper for standford pos tagger
+// support for english and german (wink only hsa english)
+https://www.npmjs.com/package/stanford-postagger
+
+// for Sentence Segmentation - wink utils
+// has english and germn
+// also some other utils that might be useful
+// demo box in link is nice for testing
+https://npm.runkit.com/wink-nlp-utils
+https://winkjs.org/wink-tokenizer/index.html
+
+<!-- https://www.npmjs.com/package/natural#tokenizers -->
+
+
+
 # :hamburger: Langevant :bento:
 Learn Language Relevantly!
 Practice the language you want to learn, by inputting language samples from the REAL WORLD to train with.

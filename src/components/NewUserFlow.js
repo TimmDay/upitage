@@ -78,7 +78,7 @@ class NewUserFlow extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    langInstruction: state.newUserFlowReducer.langInstruction,
+    // langInstruction: state.newUserFlowReducer.langInstruction,
   }
 };
 
