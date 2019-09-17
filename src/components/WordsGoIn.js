@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import { storeInputText } from '../actions/inputText'
 import sentenceSplitter from '../utils/sentence-segmenter'
 
+import TextHighlightBar from './TextHighlightBar'
+
 
 class WordsGoIn extends React.Component {
   constructor(props) {
@@ -16,23 +18,7 @@ class WordsGoIn extends React.Component {
     this.setState({textBody: evt.target.value})
   }
 
-  handleHighlightVerbs = () => {
-    let verbIndices = [] //store indices
-    this.state.arrTags.forEach((tag, i) => {
-      if (tag[0] == 'V') verbIndices.push(i)
-    })
-    const wordsArr = document.getElementsByClassName('wgi__raw-text');
-    verbIndices.forEach(match => wordsArr[match].style = 'background:red;')
-  }
-
-  handleHighlightNouns = () => {
-    let nounIndices = [] //store indices
-    this.state.arrTags.forEach((tag, i) => {
-      if (tag[0] == 'N') nounIndices.push(i)
-    })
-    const wordsArr = document.getElementsByClassName('wgi__raw-text');
-    nounIndices.forEach(match => wordsArr[match].style = 'background:green;')
-  }
+  
 
   // full text (use request body)
   handleSubmitSourceForPOS = async (evt) => {
@@ -130,17 +116,9 @@ class WordsGoIn extends React.Component {
           )
         }
 
-      <button 
-        disabled={!this.state.taggedText}
-        onClick={this.handleHighlightVerbs}
-      >select verbs
-      </button>
 
-      <button 
-        disabled={!this.state.taggedText}
-        onClick={this.handleHighlightNouns}
-      >select nouns
-      </button>
+        <TextHighlightBar />
+      
 
 
         {/* TODO: make a component that takes the text as a prop */}
