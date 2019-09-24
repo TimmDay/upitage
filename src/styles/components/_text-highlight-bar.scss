@@ -1,0 +1,38 @@
+.text-highlight-bar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  // width: 20rem;
+}
+
+.text-highlight-bar button {
+  // border-radius: 5px;
+  margin-top: $s-size/2;
+  margin-bottom: $s-size/2;
+  padding: $s-size $m-size;
+  width: 12rem;
+}
+
+.text-highlight-verb {
+  color: red;
+  font-size: $l-size * 1.3;
+  font-weight: bold;
+}
+
+.text-highlight-noun {
+  color: green;
+  font-size: $l-size * 1.3;
+  font-weight: bold;
+}
+
+.text-highlight-adjective {
+  color: orange;
+  font-size: $l-size * 1.3;
+  font-weight: bold;
+}
+
+.text-highlight-preposition {
+  color: purple;
+  font-size: $l-size * 1.3;
+  font-weight: bold;
+}

@@ -1,11 +1,18 @@
 .text-input {
-  border: 1px solid #cacccd;
-  height: 50px;
+  // border: 1px solid #cacccd;
+  // height: 50px;
+  // font-size: $font-size-large;
+  // font-weight: 300;
+  // padding: $s-size;
+  // width: 25rem;
+  border: none;
+  // color: white;
+  display: inline-block;
   font-size: $font-size-large;
   font-weight: 300;
+  line-height: 1;
   padding: $s-size;
-  width: 25rem;
-  outline: none;
+  text-decoration: none;
 }
 
 .select {

@@ -17,6 +17,9 @@ export default (state = defaultState, action) => {
         sentences: action.sentences
       };
 
+    case 'CLEAR_INPUT_TEXT':
+      return defaultState;
+
     default:
       return state;
   }
