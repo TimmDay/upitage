@@ -7,7 +7,7 @@ import inputTextReducer from '../reducers/inputText'
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 export default () => {
-  const store = createStore(
+  return createStore(
     combineReducers({
       auth: authReducer,
       userOptions: newUserFlowReducer,
@@ -15,5 +15,4 @@ export default () => {
     }),
     composeEnhancers(applyMiddleware(thunk))
   );
-  return store;
 };

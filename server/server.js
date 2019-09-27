@@ -1,7 +1,7 @@
 // const path = require('path');
 const express = require('express');
 const posTagEn = require('./../src/utils/POS/stanford-pos-english');
-const translateEnWord = require('./../src/utils/googleTranslate/translate');
+// const translateEnWord = require('./../src/utils/googleTranslate/translate');
 
 const app = express();
 const port = process.env.PORT || 3000;
