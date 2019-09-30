@@ -51,16 +51,17 @@ class TextHighlightBar extends React.Component {
   }
 
   handleHighlightAdjectives = () => {
-    let applyStyle = 'background:orange;'
+    // let applyStyle = 'background:orange;'
+    let applyClass = 'text-highlight-adjective'
 
-    if (this.state.isHighlightAdj === true) { applyStyle = 'background: none' }
+    if (this.state.isHighlightAdj === true) { applyClass = '' }
     
     let adjIndices = [] //store indices
     this.props.tags.forEach((tag, i) => {
       if (tag[0] == 'J') adjIndices.push(i)
     })
     const wordsArr = document.getElementsByClassName('wgi__raw-text');
-    adjIndices.forEach(match => wordsArr[match].style = `${applyStyle}`)
+    adjIndices.forEach(match => wordsArr[match].className = `wgi__raw-text ${applyClass}`)
  
     this.setState((prevState) => ({ isHighlightAdj: !prevState.isHighlightAdj }))
   }
@@ -80,33 +81,105 @@ class TextHighlightBar extends React.Component {
     this.setState((prevState) => ({ isHighlightPrep: !prevState.isHighlightPrep }))
   }
 
+  handleHighlightAdv = () => {
+    let applyClass = 'text-highlight-adv'
+
+    if (this.state.isHighlightAdv === true) { applyClass = '' }
+
+    let advIndices = [] //store indices
+    this.props.tags.forEach((tag, i) => {
+      if (tag[0] == 'R') advIndices.push(i)
+    })
+    const wordsArr = document.getElementsByClassName('wgi__raw-text');
+    advIndices.forEach(match => wordsArr[match].className = `wgi__raw-text ${applyClass}`)
+ 
+    this.setState((prevState) => ({ isHighlightAdv: !prevState.isHighlightAdv }))
+  }
+
+  handleHighlightDet = () => {
+    let applyClass = 'text-highlight-det'
+
+    if (this.state.isHighlightDet === true) { applyClass = '' }
+
+    let detIndices = [] //store indices
+    this.props.tags.forEach((tag, i) => {
+      if (tag[0] == 'D') detIndices.push(i)
+    })
+    const wordsArr = document.getElementsByClassName('wgi__raw-text');
+    detIndices.forEach(match => wordsArr[match].className = `wgi__raw-text ${applyClass}`)
+ 
+    this.setState((prevState) => ({ isHighlightDet: !prevState.isHighlightDet }))
+  }
+
+  handleHighlightW = () => {
+    let applyClass = 'text-highlight-w'
+
+    if (this.state.isHighlightW === true) { applyClass = '' }
+
+    let wIndices = [] //store indices
+    this.props.tags.forEach((tag, i) => {
+      if (tag[0] == 'W') wIndices.push(i)
+    })
+    const wordsArr = document.getElementsByClassName('wgi__raw-text');
+    wIndices.forEach(match => wordsArr[match].className = `wgi__raw-text ${applyClass}`)
+ 
+    this.setState((prevState) => ({ isHighlightW: !prevState.isHighlightW }))
+  }
+
+
   render () {
     return (
       <div className="text-highlight-bar">
-        <button 
-          disabled={!this.props.tags.length}
-          onClick={this.handleHighlightVerbs}
-        >verbs
-        </button>
 
-        <button
-          // style = 'color:red'
-          disabled={!this.props.tags.length}
-          onClick={this.handleHighlightNouns}
-        >nouns
-        </button>
+        <div className="text-highlight__row">
+          <button 
+            className='btn-verb'
+            disabled={!this.props.tags.length}
+            onClick={this.handleHighlightVerbs}
+          >V
+          </button>
 
-        <button 
-          disabled={!this.props.tags.length}
-          onClick={this.handleHighlightAdjectives}
-        >adjectives
-        </button>
+          <button
+            disabled={!this.props.tags.length}
+            onClick={this.handleHighlightNouns}
+          >N
+          </button>
+        </div>
 
-        <button 
-          disabled={!this.props.tags.length}
-          onClick={this.handleHighlightPrepositions}
-        >prepositions
-        </button>
+        <div className="text-highlight__row">
+          <button 
+            disabled={!this.props.tags.length}
+            onClick={this.handleHighlightAdjectives}
+          >ADJ
+          </button>
+
+          <button 
+            disabled={!this.props.tags.length}
+            onClick={this.handleHighlightPrepositions}
+          >P
+          </button>
+
+          <button 
+            disabled={!this.props.tags.length}
+            onClick={this.handleHighlightAdv}
+          >ADV
+          </button>
+        </div>
+
+        <div className="text-highlight__row">
+          <button 
+            disabled={!this.props.tags.length}
+            onClick={this.handleHighlightDet}
+          >D
+          </button>
+
+          <button 
+            disabled={!this.props.tags.length}
+            onClick={this.handleHighlightW}
+          >W
+          </button>
+
+        </div>
       </div>
     )
   }

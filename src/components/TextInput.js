@@ -36,7 +36,7 @@ class TextInput extends React.Component {
         />
       </form>
       <button 
-        className='button'
+        // className='button'
         disabled={!this.state.textBody}
         onClick={this.handleSubmitSourceForPOS}  
       >submit text</button>

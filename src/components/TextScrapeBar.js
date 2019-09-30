@@ -16,6 +16,7 @@ class TextScrapeBar extends React.Component {
   handleSubmitSourceForPOS = async (src) => {
     // TODO: instead make 2 args, src and topic
     // use these two to choose the scraper, fetch the result, populate POS
+    //action: scrape
     const obj = { 
       title: src.title || '',
       text: src.text || ''
@@ -28,19 +29,33 @@ class TextScrapeBar extends React.Component {
 
   render () {
     return (
-      <div className='text-scrape-bar'>
 
-        < TextInput />
-        <button 
-          className='button'
-          onClick={() => this.handleSubmitSourceForPOS(nyt_politics)}
-        >
-            New York Times
-        </button>
-        <button className='button'>National Geographic</button>
-        <button className='button'>ESPN</button>
+      <div className="content-container">
+        <div className='text-scrape-bar'>
 
+          < TextInput />
+
+          <img 
+            className="text-scrape-bar__icon" 
+            src="/images/icons/logo-nyt-rnd.png" 
+            onClick={() => this.handleSubmitSourceForPOS(nyt_politics)}
+          />
+
+          <img 
+            className="text-scrape-bar__icon" 
+            src="/images/icons/logo-nat-geo.png" 
+            onClick={() => this.handleSubmitSourceForPOS(natgeo)}
+          />
+
+          <img 
+            className="text-scrape-bar__icon" 
+            src="/images/icons/logo-espn.png" 
+            onClick={() => this.handleSubmitSourceForPOS(natgeo)}
+          />
+
+        </div>
       </div>
+
     )
   }
 }
@@ -48,7 +63,6 @@ class TextScrapeBar extends React.Component {
 
 const mapStateToProps = (state) => {
    return {
-       
    }
 };
 

@@ -3,8 +3,10 @@ import { connect } from 'react-redux';
 import { storeInputText } from '../actions/inputText'
 
 import TextHighlightBar from './TextHighlightBar'
-import TextInput from './TextInput'
+
 import TextScrapeBar from './TextScrapeBar'
+import LoadingPage from './LoadingPage'
+
 
 
 class WordsGoIn extends React.Component {
@@ -33,15 +35,17 @@ class WordsGoIn extends React.Component {
   //   })
   // }
 
+  //a span for each word. can then target spans by index, matching POS to textBody for highlighting 
+  //TODO: style the loading page to be absolute position in the middle
   render () {
     
     return (
       <div className='words-go-in'>
+        {this.props.isLoading && <LoadingPage />} 
 
         < TextScrapeBar />
 
         <section>
-          {/* TODO: map a span for each word in here. can then target spans by index, matching POS to textBody for highlighting */}
           {
             !this.props.arrWords ? (
               <p>no source text</p>
@@ -54,8 +58,7 @@ class WordsGoIn extends React.Component {
                       // onMouseEnter={this.handleHoverWord}
                       // onMouseLeave={this.handleHoverWordLeave}
                       key={`key${w}${i}`}
-                      // TODO: leaing space if normal char, no space if punctuation
-                      // w.test(//)
+                      // leading space if normal char, no space if punctuation
                     >{/[.',]/.test(w[0]) ? `${w}` : ` ${w}`}</span>
                   ))}
                 </p>
@@ -74,13 +77,13 @@ class WordsGoIn extends React.Component {
 
 const mapStateToProps = (state) => {
    return {
-       arrWords: state.inputTextData.words
+       arrWords: state.inputTextData.words,
+       isLoading: state.inputTextData.isLoading
    }
 };
 
 const mapDispatchToProps = (dispatch) => ({
   storeInputText: obj => dispatch(storeInputText(obj)),
-   
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(WordsGoIn);

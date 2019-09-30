@@ -4,9 +4,12 @@
   height: 100vh;
   justify-content: center;
   width: 100vw;
+  // top: 40%;
+  // left: 40%;
+  position: fixed;
 }
 
 .loader__image {
-  height: 6rem;
-  width: 6rem;
+  height: 12rem;
+  width: 12rem;
 }

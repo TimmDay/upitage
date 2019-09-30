@@ -2,7 +2,8 @@ const defaultState = {
   tags: [],
   words: [],
   tagsAndWords: [],
-  sentences: []
+  sentences: [],
+  isLoading: false
 };
 
 export default (state = defaultState, action) => {
@@ -19,6 +20,12 @@ export default (state = defaultState, action) => {
 
     case 'CLEAR_INPUT_TEXT':
       return defaultState;
+
+    case 'TOGGLE_IS_LOADING':
+      return {
+        ...state,
+        isLoading: action.isLoading
+      }
 
     default:
       return state;

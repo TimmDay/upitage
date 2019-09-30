@@ -13,13 +13,18 @@ export const clearInputText = () => ({
   type: 'CLEAR_INPUT_TEXT'
 })
 
+export const toggleIsLoading = (bool) => ({
+  type: 'TOGGLE_IS_LOADING',
+  isLoading: bool
+})
+
 
 export const startPosProcessing = (src ={}) => {
   console.log(src)
   
   return async (dispatch) => {
-
     await dispatch(clearInputText()) //clear the redux store for the incoming data
+    await dispatch(toggleIsLoading(true))
 
     const title = src.title || ''
     let text = src.text || ''
@@ -50,9 +55,11 @@ export const startPosProcessing = (src ={}) => {
       tagsAndWords: arrWordsAndTags,
       words: arrWords,
       tags: arrTags,
-      sentences: sents
+      sentences: sents,
+      // isLoading: false
     }
-    dispatch(storeInputText(obj))
+    await dispatch(storeInputText(obj))
+    await dispatch(toggleIsLoading(false)) //needs its own dispatch to trigger render to remove loader
     return obj
   }
 }

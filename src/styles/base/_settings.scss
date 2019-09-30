@@ -5,6 +5,23 @@ $grey: #333;
 $blue: #1c88bf;
 $dark-blue: #364051;
 $off-white: #f7f7f7;
+
+$color-verb: red;
+$color-noun: green;
+$color-adj: orange;
+$color-prep: purple;
+$color-adv: blue;
+$color-det: orchid;
+$color-w: yellowgreen;
+
+$color-verb-light: #ea4000;
+$color-noun-light: lighten(green,50%);
+$color-adj-light: lighten(orange,50%);
+$color-prep-light: lighten(purple,50%);
+$color-adv-light: lighten(blue,50%);
+$color-det-light: lighten(orchid,50%);
+$color-w-light: lighten(yellowgreen,50%);
+
 // Font Size
 $font-size-large: 1.8rem;
 $font-size-small: 1.4rem;
