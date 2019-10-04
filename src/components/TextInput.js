@@ -1,8 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { storeInputText, clearInputText, startPosProcessing } from '../actions/inputText'
-import sentenceSplitter from '../utils/sentence-segmenter'
-
+import { startPosProcessing } from '../actions/inputText'
 
 
 class TextInput extends React.Component {

@@ -1,5 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import {Link} from 'react-router-dom';
+
 
 
 class TextHighlightBar extends React.Component {
@@ -180,6 +182,13 @@ class TextHighlightBar extends React.Component {
           </button>
 
         </div>
+
+        <div>
+          <Link to="/fill-gaps-p">fill the gaps ex</Link>
+
+          
+        </div>
+
       </div>
     )
   }

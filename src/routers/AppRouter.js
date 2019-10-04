@@ -7,6 +7,7 @@ import PrivateRoute from './PrivateRoute';
 import PublicRoute from './PublicRoute';
 import NewUserFlow from '../components/NewUserFlow';
 import WordsGoIn from '../components/WordsGoIn';
+import FillTheGapsPrep from '../components/FillTheGapsPrep';
 
 export const history = createHistory();
 
@@ -19,6 +20,7 @@ const AppRouter = () => (
         <PublicRoute path="/" component={LoginPage} exact={true} />
         <PrivateRoute path="/new-user" component={NewUserFlow} />
         <PrivateRoute path="/words-go-in" component={WordsGoIn} />
+        <PrivateRoute path="/fill-gaps-p" component={FillTheGapsPrep} />
 
         <Route component={NotFoundPage} />
       </Switch>

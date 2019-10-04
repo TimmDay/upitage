@@ -35,10 +35,7 @@ class WordsGoIn extends React.Component {
   //   })
   // }
 
-  //a span for each word. can then target spans by index, matching POS to textBody for highlighting 
-  //TODO: style the loading page to be absolute position in the middle
   render () {
-    
     return (
       <div className='words-go-in'>
         {this.props.isLoading && <LoadingPage />} 

@@ -55,7 +55,6 @@ class TextScrapeBar extends React.Component {
 
         </div>
       </div>
-
     )
   }
 }

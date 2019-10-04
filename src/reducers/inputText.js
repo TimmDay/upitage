@@ -3,6 +3,8 @@ const defaultState = {
   words: [],
   tagsAndWords: [],
   sentences: [],
+  wordsBySent: [],
+  tagsBySent: [],
   isLoading: false
 };
 
@@ -15,7 +17,9 @@ export default (state = defaultState, action) => {
         tags: action.tags,
         words: action.words,
         tagsAndWords: action.tagsAndWords,
-        sentences: action.sentences
+        sentences: action.sentences,
+        tagsBySent: action.tagsBySent,
+        wordsBySent: action.wordsBySent
       };
 
     case 'CLEAR_INPUT_TEXT':

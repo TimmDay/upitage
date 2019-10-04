@@ -6,7 +6,9 @@ export const storeInputText = (data = {}) => ({
   tags: data.tags,
   words: data.words,
   tagsAndWords: data.tagsAndWords,
-  sentences: data.sentences
+  sentences: data.sentences,
+  wordsBySent: data.wordsBySent,
+  tagsBySent: data.tagsBySent
 })
 
 export const clearInputText = () => ({
@@ -34,6 +36,7 @@ export const startPosProcessing = (src ={}) => {
 
     const sents = sentenceSplitter(text)
     let arrWords = [], arrTags = [], arrWordsAndTags = []
+    let arrWordsBySent = [], arrTagsBySent = [] //arr of arrs
 
     for (let sent = 0; sent<sents.length; sent++) {
       const res = await fetch('http://localhost:3000/postag-text', {
@@ -42,13 +45,20 @@ export const startPosProcessing = (src ={}) => {
         redirect: 'follow',
         body: JSON.stringify({text: sents[sent]})
       })
+
       const data = await res.json()
+      let tempArrWordsThisSent = [], tempArrTagsThisSent = []
       data.tag.split(' ').forEach(wordAndTag => {
         arrWordsAndTags.push(wordAndTag)
         const bits = wordAndTag.split('_')
         arrWords.push(bits[0])
         arrTags.push(bits[1])
+        tempArrWordsThisSent.push(bits[0])
+        tempArrTagsThisSent.push(bits[1])
       })
+
+      arrWordsBySent.push(tempArrWordsThisSent)
+      arrTagsBySent.push(tempArrTagsThisSent)
     }
 
     const obj = {
@@ -56,6 +66,8 @@ export const startPosProcessing = (src ={}) => {
       words: arrWords,
       tags: arrTags,
       sentences: sents,
+      wordsBySent: arrWordsBySent,
+      tagsBySent: arrTagsBySent
       // isLoading: false
     }
     await dispatch(storeInputText(obj))
