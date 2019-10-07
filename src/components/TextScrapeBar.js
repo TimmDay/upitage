@@ -3,7 +3,10 @@ import { connect } from 'react-redux';
 import TextInput from './TextInput'
 
 import { startPosProcessing, startFleschKincaid } from '../actions/inputText'
-import nyt_politics from './../utils/text_scraper/nyt_politics';
+import nyt_politics from './../utils/text_scraper/en_nyt_politics';
+import nat_geo from './../utils/text_scraper/en_nat_geo';
+import espn from './../utils/text_scraper/en_espn';
+import nasa from './../utils/text_scraper/en_nasa_blog';
 
 class TextScrapeBar extends React.Component {
   constructor(props) {
@@ -46,13 +49,19 @@ class TextScrapeBar extends React.Component {
           <img 
             className="text-scrape-bar__icon" 
             src="/images/icons/logo-nat-geo.png" 
-            onClick={() => this.handleSubmitSourceForPOS(natgeo)}
+            onClick={() => this.handleSubmitSourceForPOS(nat_geo)}
           />
 
           <img 
             className="text-scrape-bar__icon" 
             src="/images/icons/logo-espn.png" 
-            onClick={() => this.handleSubmitSourceForPOS(natgeo)}
+            onClick={() => this.handleSubmitSourceForPOS(espn)}
+          />
+
+          <img 
+            className="text-scrape-bar__icon" 
+            src="/images/icons/logo-nasa.png" 
+            onClick={() => this.handleSubmitSourceForPOS(nasa)}
           />
 
         </div>

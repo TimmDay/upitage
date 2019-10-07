@@ -201,7 +201,7 @@ const mapStateToProps = (state) => {
    return {
        tags: state.inputTextData.tags,
        fleschReadingEase: state.inputTextData.fleschReadingEase,
-       fleschKincaidGradeLevel: state.inputTextData.fleschKincaidGradeLevel > 12 ? 'University' : state.inputTextData.fleschKincaidGradeLevel
+       fleschKincaidGradeLevel: state.inputTextData.fleschKincaidGradeLevel > 13 ? 'University' : state.inputTextData.fleschKincaidGradeLevel
    }
 };
 
