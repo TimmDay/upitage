@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import TextInput from './TextInput'
 
-import { startPosProcessing } from '../actions/inputText'
+import { startPosProcessing, startFleschKincaid } from '../actions/inputText'
 import nyt_politics from './../utils/text_scraper/nyt_politics';
 
 class TextScrapeBar extends React.Component {
@@ -23,6 +23,8 @@ class TextScrapeBar extends React.Component {
     }
     const result = await this.props.startPosProcessing(obj)
     console.log(result)
+    // only if english text
+    this.props.startFleschKincaid(obj.text)
   }
 
 
@@ -66,7 +68,8 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  startPosProcessing: (src) => dispatch(startPosProcessing(src))
+  startPosProcessing: (src) => dispatch(startPosProcessing(src)),
+  startFleschKincaid: (str) => dispatch(startFleschKincaid(str))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(TextScrapeBar);

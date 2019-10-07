@@ -31,6 +31,13 @@ export default (state = defaultState, action) => {
         isLoading: action.isLoading
       }
 
+    case 'STORE_FLESCH_KINCAID':
+      return {
+        ...state,
+        fleschReadingEase: action.fleschReadingEase,
+        fleschKincaidGradeLevel: action.fleschKincaidGradeLevel
+      }
+
     default:
       return state;
   }

@@ -11,23 +11,40 @@ class FillTheGapsPrep extends React.Component {
 
   componentWillMount() {
     let arrSentsWithPreps = []
+
+    // determine candidate sentences for exercise
+    // build the exercise sentence (words)
+    // store the correct answers, (i, j)
+
+    let exercises = []
+    let answers = [] //i,j
+
+    // check if sentence has prep. if not skip
+    //let hasPREP = false
     this.props.tagsBySent.forEach((sent,i) => {
 
-      for (let j=0; j<sent.length; j++) {
-        console.log(sent.length)
-        if (sent.length > 33) break; // restrict sentence length for exercise
-        
-        if (sent[j][0] == 'I' || sent[j][0] == 'T') { //check for preposition tag
-          arrSentsWithPreps.push(i)
-          break;
+      if (sent.length > 33) {
+        // length restriciton: do nothing
+      } else {
+        let exercise = []
+        for (let j=0; j<sent.length; j++) {
+          if (sent[j][0] == 'I' || sent[j][0] == 'T') { //check for preposition tag
+            arrSentsWithPreps.push(i)
+            exercise.push('_____')
+            // break;
+          } else {
+            exercise.push(this.props.wordsBySent[i][j])
+          }
         }
+        exercises.push(exercise)
       }
     })
     console.log(arrSentsWithPreps)
 
     this.setState({ 
       sentsWithPrep: arrSentsWithPreps,
-      currentSent: 0
+      currentSent: 0,
+      exercises: exercises
     })
     
     //[0, 1, 2, 2, 2, 3, 3, 3, 3, 3, 3, 4, 4, 4, 4, 5, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6]
@@ -36,16 +53,22 @@ class FillTheGapsPrep extends React.Component {
 
   render () {
     return (
-      <div>
+      <React.Fragment>
         <p>fill the gaps exercise</p>
-        <Link to="/words-go-in">back</Link>
+        {
+          this.state.exercises[0].map((w,i) => (
+            <span
+              key={`key${w}${i}`}
+            >
+              {`${w} `}
+            </span>
+          ))
+        }
 
-        {/* {this.props.tagsBySent && 
-        this.props.wordsBySent[sentsWithPrep[this.state.currentSent]].map((sent,i) => (
-          <p></p>
-        ))
-        } */}
-      </div>
+        <div>
+        <Link to="/words-go-in">back</Link>
+        </div>
+      </React.Fragment>
     )
   }
 }

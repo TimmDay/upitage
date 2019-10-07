@@ -184,10 +184,12 @@ class TextHighlightBar extends React.Component {
         </div>
 
         <div>
-          <Link to="/fill-gaps-p">fill the gaps ex</Link>
-
-          
+          {this.props.fleschKincaidGradeLevel && <p>Reading Grade: {this.props.fleschKincaidGradeLevel}</p>}
+          {this.props.fleschReadingEase && <p>Reading Ease: {this.props.fleschReadingEase}</p>}
         </div>
+
+        <Link to="/fill-gaps-p">fill the gaps ex</Link>
+
 
       </div>
     )
@@ -196,7 +198,9 @@ class TextHighlightBar extends React.Component {
 
 const mapStateToProps = (state) => {
    return {
-       tags: state.inputTextData.tags
+       tags: state.inputTextData.tags,
+       fleschReadingEase: state.inputTextData.fleschReadingEase,
+       fleschKincaidGradeLevel: state.inputTextData.fleschKincaidGradeLevel > 12 ? 'University' : state.inputTextData.fleschKincaidGradeLevel
    }
 };
 

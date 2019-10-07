@@ -1,5 +1,6 @@
 //action
 import sentenceSplitter from '../utils/sentence-segmenter'
+import { getFleschKincaidStats } from '../utils/readability-stats/flesch-kincaid'
 
 export const storeInputText = (data = {}) => ({
   type: 'STORE_INPUT_TEXT',
@@ -11,15 +12,12 @@ export const storeInputText = (data = {}) => ({
   tagsBySent: data.tagsBySent
 })
 
-export const clearInputText = () => ({
-  type: 'CLEAR_INPUT_TEXT'
-})
+export const clearInputText = () => ({ type: 'CLEAR_INPUT_TEXT' })
 
 export const toggleIsLoading = (bool) => ({
   type: 'TOGGLE_IS_LOADING',
   isLoading: bool
 })
-
 
 export const startPosProcessing = (src ={}) => {
   console.log(src)
@@ -75,3 +73,20 @@ export const startPosProcessing = (src ={}) => {
     return obj
   }
 }
+
+
+export const startFleschKincaid = (text='') => {
+  return async (dispatch) => {
+    console.log('start FK')
+    const obj = getFleschKincaidStats(text)
+    console.log(obj)
+    
+    dispatch(storeFleschKincaid(obj))
+  }
+}
+
+const storeFleschKincaid = (obj) => ({
+  type: 'STORE_FLESCH_KINCAID',
+  fleschReadingEase: obj.fleschReadingEase,
+  fleschKincaidGradeLevel: obj.fleschKincaidGradeLevel
+})

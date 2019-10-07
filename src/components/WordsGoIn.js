@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { storeInputText } from '../actions/inputText'
 
 import TextHighlightBar from './TextHighlightBar'
-
 import TextScrapeBar from './TextScrapeBar'
 import LoadingPage from './LoadingPage'
 
