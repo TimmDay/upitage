@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import {Link} from 'react-router-dom';
-
+import { Link } from 'react-router-dom';
+import { startGenFGP } from '../actions/fillGapsPrep'
 
 
 class TextHighlightBar extends React.Component {
@@ -188,6 +188,7 @@ class TextHighlightBar extends React.Component {
           {this.props.fleschReadingEase && <p>Reading Ease: {this.props.fleschReadingEase}</p>}
         </div>
 
+        <div onClick={this.props.startGenFGP}>filg aps test</div>
         <Link to="/fill-gaps-p">fill the gaps ex</Link>
 
 
@@ -204,4 +205,8 @@ const mapStateToProps = (state) => {
    }
 };
 
-export default connect(mapStateToProps)(TextHighlightBar);
+const mapDispatchToProps = (dispatch) => ({
+  startGenFGP: () => dispatch(startGenFGP())
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(TextHighlightBar);

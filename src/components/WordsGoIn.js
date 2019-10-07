@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { storeInputText } from '../actions/inputText'
 
 import TextHighlightBar from './TextHighlightBar'
 import TextScrapeBar from './TextScrapeBar'
@@ -79,7 +78,7 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  storeInputText: obj => dispatch(storeInputText(obj)),
+
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(WordsGoIn);

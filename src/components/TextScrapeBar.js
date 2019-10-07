@@ -69,7 +69,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => ({
   startPosProcessing: (src) => dispatch(startPosProcessing(src)),
-  startFleschKincaid: (str) => dispatch(startFleschKincaid(str))
+  startFleschKincaid: (str) => dispatch(startFleschKincaid(str)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(TextScrapeBar);

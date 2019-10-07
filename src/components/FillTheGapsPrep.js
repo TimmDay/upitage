@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 
 class FillTheGapsPrep extends React.Component {
@@ -31,6 +31,7 @@ class FillTheGapsPrep extends React.Component {
           if (sent[j][0] == 'I' || sent[j][0] == 'T') { //check for preposition tag
             arrSentsWithPreps.push(i)
             exercise.push('_____')
+            answers.push(this.props.wordsBySent[i][j])
             // break;
           } else {
             exercise.push(this.props.wordsBySent[i][j])
@@ -54,7 +55,7 @@ class FillTheGapsPrep extends React.Component {
   render () {
     return (
       <React.Fragment>
-        <p>fill the gaps exercise</p>
+        <p>Which Preposition fits?</p>
         {
           this.state.exercises[0].map((w,i) => (
             <span
@@ -66,7 +67,11 @@ class FillTheGapsPrep extends React.Component {
         }
 
         <div>
-        <Link to="/words-go-in">back</Link>
+
+        </div>
+
+        <div>
+          <Link to="/words-go-in">back</Link>
         </div>
       </React.Fragment>
     )
