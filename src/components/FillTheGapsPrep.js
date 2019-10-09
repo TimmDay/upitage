@@ -3,52 +3,81 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 
+// count num of answer sets (= total questions)
+// track num correct for a percentage
+// track 'score' for user
+
+// make focus auto go to first btn, so user can tab through them and press enter
+// first gap in sentence has class 'active' (gap corresponds with index of answer set)
+
+// correct score gives points and fills in the answer with green text, 
+// incorrect score minuses some points, fills in nothing and movs to next gap
+
+// if user clicks next Ex before filling all gaps, how can they come back to it?
+  // remove any score from the exercise, put it to back of queue
+
+//handleClickGap
+  //changes the answerSet to that gap
+
 class FillTheGapsPrep extends React.Component {
   constructor(props) {
       super(props);
-      this.state = {}
+      this.state = {
+        exerciseIndex: 0,
+        answerIndexFocus: 0
+      }
   }
 
-  componentWillMount() {
-    let arrSentsWithPreps = []
+  handleClickNextEx = () => {
+    this.setState(prevState => ({
+      exerciseIndex: prevState.exerciseIndex + 1
+    }))
+  }
 
-    // determine candidate sentences for exercise
-    // build the exercise sentence (words)
-    // store the correct answers, (i, j)
+  handleClickNextGapInEx = () => {
+    this.setState(prevState => ({
+      answerIndexFocus: prevState.answerIndexFocus + 1
+    }))
+  }
 
-    let exercises = []
-    let answers = [] //i,j
-
-    // check if sentence has prep. if not skip
-    //let hasPREP = false
-    this.props.tagsBySent.forEach((sent,i) => {
-
-      if (sent.length > 33) {
-        // length restriciton: do nothing
-      } else {
-        let exercise = []
-        for (let j=0; j<sent.length; j++) {
-          if (sent[j][0] == 'I' || sent[j][0] == 'T') { //check for preposition tag
-            arrSentsWithPreps.push(i)
-            exercise.push('_____')
-            answers.push(this.props.wordsBySent[i][j])
-            // break;
-          } else {
-            exercise.push(this.props.wordsBySent[i][j])
-          }
-        }
-        exercises.push(exercise)
-      }
-    })
-    console.log(arrSentsWithPreps)
-
-    this.setState({ 
-      sentsWithPrep: arrSentsWithPreps,
-      currentSent: 0,
-      exercises: exercises
-    })
+  handleClickGap = (evt) => {
+    console.log(evt.target)
     
-    //[0, 1, 2, 2, 2, 3, 3, 3, 3, 3, 3, 4, 4, 4, 4, 5, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6]
+    //get the index of the gap
+    // just count it
+      // get posn in html coll
+      // count gaps before it
+    // const coll = 
+    // this.setState(prevState => ({ answerIndexFocus: }))
+  }
+
+  handleClickAnswer = (a) => {
+
+    if (a.correct) {
+      console.log(a.indexInSentence)
+
+      // move focus to next gap (IFF there is another gap)
+      console.log(this.state.answerIndexFocus)
+      console.log(this.props.exercises[this.state.exerciseIndex].answerSet.length-1)
+      
+      const lastGapIndex = this.props.exercises[this.state.exerciseIndex].answerSet.length -1
+      if (this.state.answerIndexFocus < lastGapIndex) {
+        this.handleClickNextGapInEx()
+      } else {
+        // move focus to next button, make whole sentence green animation,
+          // plus points animation
+        // OR just go to next exercise
+      }
+      
+
+      // render the correct word in the sentence
+      document.getElementsByClassName('ftgp__sentence-word')[a.indexInSentence].textContent = `${a.word} `
+
+      // can we change it in the data instead?
+    }
+    
+
+    // if all sentence gaps are full, move focus to the arrow for the next exercise
     
   }
 
@@ -56,20 +85,47 @@ class FillTheGapsPrep extends React.Component {
     return (
       <React.Fragment>
         <p>Which Preposition fits?</p>
+
+        <div className='ftgp__sentence'>
         {
-          this.state.exercises[0].map((w,i) => (
+          this.props.exercises[this.state.exerciseIndex].sentence.map((w,i) => {
+            let wordClasses = 'ftgp__sentence-word'
+            // let clickFcn
+            // if (w === '___') { //TODO: gap may change. put it in a global constants file at some point
+            //   console.log('gap here, add to className')
+            //   wordClasses += ' ftgp__sentence-gap'
+            // }
+            return (
             <span
               key={`key${w}${i}`}
+              className={wordClasses}
+              onClick={(w === '___') ? this.handleClickGap : ()=>-1} //TODO: ask if ok on SO
             >
               {`${w} `}
             </span>
-          ))
+          )})
         }
-
-        <div>
-
         </div>
 
+        <div className='ftgp__answer-set'>
+          {
+            this.props.exercises[this.state.exerciseIndex].answerSet[this.state.answerIndexFocus].map((a,i) => (
+              <button
+                key={`key${a.word}${i}`}
+                onClick={() => this.handleClickAnswer(a)}
+              >{`${a.word}`}</button>
+            ))
+          }
+          <button
+            onClick={this.handleClickNextGapInEx}
+          >
+            next gap
+          </button>
+        </div>
+
+        <button
+          onClick={this.handleClickNextEx}
+        >Nxt exercise</button>
         <div>
           <Link to="/words-go-in">back</Link>
         </div>
@@ -78,11 +134,10 @@ class FillTheGapsPrep extends React.Component {
   }
 }
 
-
+//each exercise has sentence and answerSet (arr of arrs for each prep in sentence)
 const mapStateToProps = (state) => {
    return {
-    tagsBySent: state.inputTextData.tagsBySent,
-    wordsBySent: state.inputTextData.wordsBySent
+    exercises: state.fillGapsPrepReducer.exercisesFGP
    }
 };
 

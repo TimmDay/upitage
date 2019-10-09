@@ -29,7 +29,11 @@ export const startGenFGP = () => {
         sent.forEach((tag,j) => {
           if (tag[0] == 'I' || tag[0] == 'T') { //check first char of each tag for preposition
             sentenceArr.push('___')
-            answerSets.push([{ word: wordsBySent[i][j], correct: true }])
+            answerSets.push([{ 
+              word: wordsBySent[i][j], 
+              correct: true,
+              indexInSentence: j
+            }])
           } else {
             sentenceArr.push(wordsBySent[i][j])
           }
