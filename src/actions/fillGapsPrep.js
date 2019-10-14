@@ -1,4 +1,5 @@
 import { shuffleInPlace } from '../utils/arrayTools'
+import { enPrepositionsCommon, enPrepositionsTrickier } from '../utils/POS/en-common-prep'
 
 // we want to collect the (shorter) sentences from the text that
   // - have at least 1 preposition
@@ -39,11 +40,33 @@ export const startGenFGP = () => {
           }
         }) 
 
-        // add confounding answers to answer set
+        // add confounding answers to answer set and shuffle
+        //TODO: how to ensure no match?
         answerSets.forEach(set => {
-          set.push({ word: 'random', correct: false }) //TODO:
-          set.push({ word: 'random', correct: false }) //TODO:
-          set.push({ word: 'random', correct: false }) //TODO:
+          const correct = set[0].word
+          let commonList = enPrepositionsCommon
+          let trickierList = enPrepositionsTrickier
+
+          // avoid dbl answers, remove correct answer from the relevant confounding list
+          if (commonList.includes(correct)) commonList.splice(commonList.indexOf(correct),1)
+          else if (trickierList.includes(correct)) trickierList.splice(trickierList.indexOf(correct),1)
+          
+          const word1 = enPrepositionsCommon[Math.floor(Math.random() * enPrepositionsCommon.length)]
+          const word2 = enPrepositionsCommon[Math.floor(Math.random() * enPrepositionsCommon.length)]
+          const word3 = enPrepositionsTrickier[Math.floor(Math.random() * enPrepositionsTrickier.length)]
+
+          set.push({ 
+            word: word1, 
+            correct: false 
+          })
+          set.push({ 
+            word: word2, 
+            correct: false 
+          })
+          set.push({ 
+            word: word3,             
+            correct: false 
+          })
         // shuffle the answers
           shuffleInPlace(set) 
         })
@@ -56,7 +79,6 @@ export const startGenFGP = () => {
     // shuffle the exercises arr?
     shuffleInPlace(exercisesFGP)
     console.log(exercisesFGP)
-
 
     // store in redux
     dispatch(storeFGP(exercisesFGP))

@@ -2,6 +2,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
+// next gap btn disabled if all questions are answered 
+
+// check that confounding preps dont match correct one
 
 // count num of answer sets (= total questions)
 // track num correct for a percentage
@@ -30,14 +33,35 @@ class FillTheGapsPrep extends React.Component {
 
   handleClickNextEx = () => {
     this.setState(prevState => ({
-      exerciseIndex: prevState.exerciseIndex + 1
+      exerciseIndex: prevState.exerciseIndex + 1,
+      answerIndexFocus: 0
     }))
   }
 
   handleClickNextGapInEx = () => {
-    this.setState(prevState => ({
-      answerIndexFocus: prevState.answerIndexFocus + 1
-    }))
+    const nextGapIndex = this.state.answerIndexFocus + 1
+    const numAnswerSets = this.props.exercises[this.state.exerciseIndex].answerSet.length
+
+    if (nextGapIndex < numAnswerSets) {
+      this.setState(prevState => ({
+        answerIndexFocus: prevState.answerIndexFocus + 1
+      }))
+      // remove highlight class from other elements
+      // add highlight class to this element
+    } else {
+      this.setState(({
+        answerIndexFocus: 0
+      }))
+    }
+    // if we are approaching the last gap, go back to the first one
+
+
+    // if answerIndexFocus < this.props.exercises[exerciseIndex].answerSet.length (number)
+
+
+    
+    
+
   }
 
   handleClickGap = (evt) => {
@@ -49,21 +73,26 @@ class FillTheGapsPrep extends React.Component {
       // count gaps before it
     // const coll = 
     // this.setState(prevState => ({ answerIndexFocus: }))
+
+    // give the gap class highlighted,
+    // remove class from other gaps
   }
 
   handleClickAnswer = (a) => {
-
     if (a.correct) {
       console.log(a.indexInSentence)
-
-      // move focus to next gap (IFF there is another gap)
       console.log(this.state.answerIndexFocus)
       console.log(this.props.exercises[this.state.exerciseIndex].answerSet.length-1)
       
+      // move focus to next gap (IFF there is another gap)
       const lastGapIndex = this.props.exercises[this.state.exerciseIndex].answerSet.length -1
       if (this.state.answerIndexFocus < lastGapIndex) {
         this.handleClickNextGapInEx()
+
       } else {
+
+        // if still unfilled gaps, go to the first remaining
+
         // move focus to next button, make whole sentence green animation,
           // plus points animation
         // OR just go to next exercise
@@ -91,15 +120,15 @@ class FillTheGapsPrep extends React.Component {
           this.props.exercises[this.state.exerciseIndex].sentence.map((w,i) => {
             let wordClasses = 'ftgp__sentence-word'
             // let clickFcn
-            // if (w === '___') { //TODO: gap may change. put it in a global constants file at some point
-            //   console.log('gap here, add to className')
-            //   wordClasses += ' ftgp__sentence-gap'
-            // }
+            if (w === '___') { //TODO: gap may change. put it in a global constants file at some point
+              console.log('gap here, add to className')
+              wordClasses += ' ftgp__sentence-gap'
+            }
             return (
             <span
               key={`key${w}${i}`}
               className={wordClasses}
-              onClick={(w === '___') ? this.handleClickGap : ()=>-1} //TODO: ask if ok on SO
+              onClick={(w === '___') ? this.handleClickGap : ()=>console.log('gap click')} //TODO: ask if ok on SO
             >
               {`${w} `}
             </span>
