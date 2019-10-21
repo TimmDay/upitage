@@ -62,8 +62,6 @@ class WordsGoIn extends React.Component {
           }
           <TextHighlightBar />
         </section>
-        
-
     </div>
     )
   }

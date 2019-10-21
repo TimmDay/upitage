@@ -19,6 +19,9 @@ export const startLoginDemo = () => {
   localStorage.setItem('demo','true'); 
   //to allow refresh of demo sessions
   //check local storage on refresh
+
+  // retrieve info from localStorage TODO:
+  // clear local storage before adding new info
   
   return dispatch => {
     dispatch(login('demo'));

@@ -1,3 +1,4 @@
+import { history } from '../routers/AppRouter';
 import { shuffleInPlace } from '../utils/arrayTools'
 import { enPrepositionsCommon, enPrepositionsTrickier } from '../utils/POS/en-common-prep'
 
@@ -20,8 +21,7 @@ export const startGenFGP = () => {
     // go through each sentence
     tagsBySent.forEach((sent, i) => {
       // restriction: exercises only for shorter sentences
-      if (sent.length > 33) {
-        // do nothing
+      if (sent.length > 33) {// do nothing
       } else {
         let sentenceArr = [] //will contains strings for words, with ___ for preps
         let answerSets = [] // will contain arr of [{ value: 'word', correct: bool }], in order of prep appearance in sentence  
@@ -74,6 +74,8 @@ export const startGenFGP = () => {
         // submit to exercise arr
         exercisesFGP.push({ sentence: sentenceArr, answerSet: answerSets })
       }
+
+      history.push('/fill-gaps-p');
     })
 
     // shuffle the exercises arr?

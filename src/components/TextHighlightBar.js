@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import { startGenFGP } from '../actions/fillGapsPrep'
 
 
@@ -188,9 +187,7 @@ class TextHighlightBar extends React.Component {
           {this.props.fleschReadingEase && <p>Reading Ease: {this.props.fleschReadingEase}</p>}
         </div>
 
-        <div onClick={this.props.startGenFGP}>filg aps test</div>
-        <Link to="/fill-gaps-p">fill the gaps ex</Link>
-
+        <button onClick={this.props.startGenFGP}>Preposition Training</button>
 
       </div>
     )

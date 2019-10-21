@@ -4,13 +4,12 @@ import { Link } from 'react-router-dom';
 
 // next gap btn disabled if all questions are answered 
 
-// check that confounding preps dont match correct one
-
 // count num of answer sets (= total questions)
 // track num correct for a percentage
 // track 'score' for user
 
 // make focus auto go to first btn, so user can tab through them and press enter
+// focused gap gets a nice 'blur' css style
 // first gap in sentence has class 'active' (gap corresponds with index of answer set)
 
 // correct score gives points and fills in the answer with green text, 
@@ -31,11 +30,19 @@ class FillTheGapsPrep extends React.Component {
       }
   }
 
-  handleClickNextEx = () => {
-    this.setState(prevState => ({
-      exerciseIndex: prevState.exerciseIndex + 1,
-      answerIndexFocus: 0
-    }))
+  handleClickNextEx = async () => {
+    const numExercises = await this.props.exercises.length
+    if (this.state.exerciseIndex < numExercises-1) {
+      await this.setState(prevState => ({
+        exerciseIndex: prevState.exerciseIndex + 1,
+        answerIndexFocus: 0
+      }))
+    } else {
+      await this.setState({
+        exerciseIndex: 0,
+        answerIndexFocus: 0
+      })
+    }
   }
 
   handleClickNextGapInEx = () => {
@@ -53,15 +60,6 @@ class FillTheGapsPrep extends React.Component {
         answerIndexFocus: 0
       }))
     }
-    // if we are approaching the last gap, go back to the first one
-
-
-    // if answerIndexFocus < this.props.exercises[exerciseIndex].answerSet.length (number)
-
-
-    
-    
-
   }
 
   handleClickGap = (evt) => {
@@ -85,7 +83,7 @@ class FillTheGapsPrep extends React.Component {
       console.log(this.props.exercises[this.state.exerciseIndex].answerSet.length-1)
       
       // move focus to next gap (IFF there is another gap)
-      const lastGapIndex = this.props.exercises[this.state.exerciseIndex].answerSet.length -1
+      const lastGapIndex = this.props.exercises[this.state.exerciseIndex].answerSet.length-1
       if (this.state.answerIndexFocus < lastGapIndex) {
         this.handleClickNextGapInEx()
 
@@ -100,7 +98,7 @@ class FillTheGapsPrep extends React.Component {
       
 
       // render the correct word in the sentence
-      document.getElementsByClassName('ftgp__sentence-word')[a.indexInSentence].textContent = `${a.word} `
+      document.getElementsByClassName('ftgp__sentence-word')[a.indexInSentence].textContent = ` ${a.word} `
 
       // can we change it in the data instead?
     }
@@ -110,12 +108,15 @@ class FillTheGapsPrep extends React.Component {
     
   }
 
+  // TODO:
+  // gaps get a special highlight, especially when active
+  // filled in words get the preposition color
   render () {
     return (
-      <React.Fragment>
-        <p>Which Preposition fits?</p>
+      <div className='content-container'>
+        {/* <p className='ftgp__title'>Fill The Gaps!</p> */}
 
-        <div className='ftgp__sentence'>
+        <div className='ftgp__sentence slide-in'>
         {
           this.props.exercises[this.state.exerciseIndex].sentence.map((w,i) => {
             let wordClasses = 'ftgp__sentence-word'
@@ -130,7 +131,8 @@ class FillTheGapsPrep extends React.Component {
               className={wordClasses}
               onClick={(w === '___') ? this.handleClickGap : ()=>console.log('gap click')} //TODO: ask if ok on SO
             >
-              {`${w} `}
+              {/[.',]/.test(w[0]) ? `${w}` : ` ${w}`}
+              {/* {`${w} `} */}
             </span>
           )})
         }
@@ -141,24 +143,27 @@ class FillTheGapsPrep extends React.Component {
             this.props.exercises[this.state.exerciseIndex].answerSet[this.state.answerIndexFocus].map((a,i) => (
               <button
                 key={`key${a.word}${i}`}
+                className='ftgp__answer-btn'
                 onClick={() => this.handleClickAnswer(a)}
               >{`${a.word}`}</button>
             ))
           }
           <button
+            className='ftgp__answer-btn'
             onClick={this.handleClickNextGapInEx}
-          >
-            next gap
+          >&#10095;
           </button>
         </div>
 
         <button
           onClick={this.handleClickNextEx}
-        >Nxt exercise</button>
+        >Nxt exercise
+        </button>
+
         <div>
           <Link to="/words-go-in">back</Link>
         </div>
-      </React.Fragment>
+      </div>
     )
   }
 }
