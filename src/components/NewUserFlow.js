@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import {Link} from 'react-router-dom';
 import ButtonChooseLang from './ButtonChooseLang';
 import { selectLangInstruction, selectLangTarget } from '../actions/newUserFlow';
-
+import { mapLangToISpeak, mapLangToILearn } from '../utils/mapLang';
 
 class NewUserFlow extends React.Component {
   constructor(props) {
@@ -14,11 +14,9 @@ class NewUserFlow extends React.Component {
   render () {
     return (
       <div className='new-user-flow'>
-        { !this.props.langInstruction && <p>I speak...</p> }
-        { this.props.langInstruction === 'EN' && <p>I speak...</p> }
-        { this.props.langInstruction === 'DE' && <p>Ich spreche...</p> }
-        { this.props.langInstruction === 'ES' && <p>Yo..</p> }
         <div className='container'>
+            <p className='NUF__instruction'>{mapLangToISpeak(this.props.langInstruction)}</p>
+
             <ButtonChooseLang
               title='English'
               imgLink='/images/flags-btn-round/flag-uk-button-round-500.png'
@@ -35,36 +33,27 @@ class NewUserFlow extends React.Component {
               handleOnClick={()=> this.props.selectLangInstruction('ES')}
             />
         </div>
-
-        { !this.props.langInstruction && <p>I want to learn...</p> }
-        { this.props.langInstruction === 'EN' && <p>I want to learn...</p> }
-        { this.props.langInstruction === 'DE' && <p>Ich will das lernen...</p> }
-        { this.props.langInstruction === 'ES' && <p>burritos..</p> }
         
         <div className='container'>
-          {this.props.langInstruction !== 'EN' &&
+          <p className='NUF__instruction'>{mapLangToILearn(this.props.langInstruction)}</p>
+
           <ButtonChooseLang
             title='English'
             imgLink='/images/flags-btn-round/flag-uk-button-round-500.png'
             handleOnClick={()=> this.props.selectLangTarget('EN')}
           />
-          }
 
-          {this.props.langInstruction !== 'DE' &&
           <ButtonChooseLang
             title='Deutsch'
             imgLink='/images/flags-btn-round/flag-germany-button-round-500.png'
             handleOnClick={()=> this.props.selectLangTarget('DE')}
           />
-          }
-          
-          {this.props.langInstruction !== 'ES' &&
+        
           <ButtonChooseLang
             title='Español'
             imgLink='/images/flags-btn-round/flag-spain-button-round-500.png'
             handleOnClick={()=> this.props.selectLangTarget('ES')}
           />
-          }
         </div>
 
         <Link className="" to={`/words-go-in`}>
@@ -78,7 +67,7 @@ class NewUserFlow extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    // langInstruction: state.newUserFlowReducer.langInstruction,
+    langInstruction: state.userOptions.langInstruction,
   }
 };
 

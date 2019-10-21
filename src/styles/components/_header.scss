@@ -16,3 +16,15 @@
     margin: 0;
   }
 }
+.header__right {
+  display: flex;
+  align-items: center;
+}
+.header__spoken {
+  height: 2rem;
+  width: 2rem;
+}
+.header__target{
+  height: 4rem;
+  width: 4rem;
+}

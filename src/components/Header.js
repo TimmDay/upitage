@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { startLogout } from '../actions/auth';
+import { mapLangToImage } from '../utils/mapLang';
 
 // logo
 // app name
@@ -12,25 +13,45 @@ import { startLogout } from '../actions/auth';
 // icon(s) for lang spoken and target
 // log in / logout
 
-export const Header = ({ startLogout }) => (
+export const Header = (props) => (
   <header className="header">
     <div className="content-container">
       <div className="header__content">
         <Link className="header__title" to="/main">
           <h1>
             {/* <FontAwesomeIcon icon="tv" /> */}
-            &nbsp;&nbsp;Langevant&nbsp;&nbsp;
+            Langevant
             {/* <FontAwesomeIcon icon="newspaper" /> */}
           </h1>
         </Link>
-        <button className="button button--link" onClick={startLogout}>Logout</button>
+
+        <div className='header__right'>
+          <img
+            className='header__spoken'
+            src={mapLangToImage(props.spoken)} 
+            alt="display users spoken language"
+          />
+          <img 
+            className='header__target'
+            src={mapLangToImage(props.target)} 
+            alt="display users language to learn"
+          />
+          <button className="button button--link" onClick={props.startLogout}>Logout</button>
+        </div>
+
       </div>
     </div>
   </header>
 );
 
+const mapStateToProps = (state) => {
+  return {
+    spoken: state.userOptions.langInstruction || '',
+    target: state.userOptions.langTarget || ''
+  }
+};
 const mapDispatchToProps = (dispatch) => ({
   startLogout: () => dispatch(startLogout())
 });
 
-export default connect(undefined, mapDispatchToProps)(Header);
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

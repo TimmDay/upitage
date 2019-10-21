@@ -18,7 +18,7 @@ const AppRouter = () => (
     <div>
       <Switch>
         <PublicRoute path="/" component={LoginPage} exact={true} />
-        <PrivateRoute path="/new-user" component={NewUserFlow} />
+        <Route path="/new-user" component={NewUserFlow} />
         <PrivateRoute path="/words-go-in" component={WordsGoIn} />
         <PrivateRoute path="/fill-gaps-p" component={FillTheGapsPrep} />
 

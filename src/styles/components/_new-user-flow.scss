@@ -9,22 +9,20 @@
   display: flex;
   justify-content: space-around;
   flex-flow: wrap;
+  max-width: 80%;
+  margin: $m-size auto;
 }
 .new-user-flow__btn {
-  margin: $l-size*2 0;
-
   background: $dark-blue;
   border-radius: 5px;
   color: #fff;
   font-size: 1.8rem;
   letter-spacing: 1rem;
   text-indent: 1rem;
-  text-align: center;
-  // width: 8.5rem;
+  // text-align: center;
   padding: $m-size $l-size;
-
 }
 
-.new-user-flow p {
-  margin: $l-size 0;
+.NUF__instruction {
+  width: 25rem;
 }
