@@ -11,6 +11,11 @@ import { enPrepositionsCommon, enPrepositionsTrickier } from '../utils/POS/en-co
   // - array of possibleAnswerSets (array) (for each blank)
     // contains tuples. answer, and whether it is correct or not
 
+
+export const navigateToFGP = () => {
+  history.push('/fill-gaps-p');
+}
+
 export const startGenFGP = () => {
   return async (dispatch, getState) => {
     const wordsBySent = getState().inputTextData.wordsBySent
@@ -75,7 +80,6 @@ export const startGenFGP = () => {
         exercisesFGP.push({ sentence: sentenceArr, answerSet: answerSets })
       }
 
-      history.push('/fill-gaps-p');
     })
 
     // shuffle the exercises arr?

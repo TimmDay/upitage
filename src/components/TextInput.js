@@ -6,7 +6,9 @@ import { startPosProcessing, startFleschKincaid } from '../actions/inputText'
 class TextInput extends React.Component {
   constructor(props) {
       super(props);
-      this.state = {}
+      this.state = {
+        textBody: ''
+      }
   }
 
   handleChangeTextArea = (evt) => {
@@ -17,6 +19,7 @@ class TextInput extends React.Component {
   handleSubmitSourceForPOS = async (evt) => {
     evt.preventDefault();
     const obj = { text: this.state.textBody }
+    
     const result = await this.props.startPosProcessing(obj)
     // only if english text
     this.props.startFleschKincaid(this.state.textBody)
@@ -25,15 +28,19 @@ class TextInput extends React.Component {
   render () {
     return (
       <React.Fragment>
-      <form onSubmit={this.handleSubmitSourceForPOS}>
-        <input 
-          className='source-area text-input'
+      <form
+        className='text-input__form'
+        onSubmit={this.handleSubmitSourceForPOS}
+      >
+        <textarea 
+          className='text-input__textarea'
           value={this.state.textBody}
           onChange={this.handleChangeTextArea}
           placeholder='paste own text'
-          onSubmit={this.handleSubmitSourceForPOS}
+          // onSubmit={this.handleSubmitSourceForPOS}
         />
       </form>
+
       <button 
         // className='button'
         disabled={!this.state.textBody}

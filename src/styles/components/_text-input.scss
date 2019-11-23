@@ -1,3 +1,17 @@
-// .text-input {
+.text-input__form {
+  display: flex;
+  justify-content: center;
+  background-color: green;
+}
 
-// }
+.text-input__textarea {
+  margin: 0 auto;
+  color: red;
+  width: 70vw;
+  height: 60vh;
+  padding: 20px;
+  box-sizing: border-box;
+  border: solid 4px #eee;
+  border-radius: 5px;
+  resize: none;
+}

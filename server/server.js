@@ -17,7 +17,8 @@ app.use((req,res,next) => {
     'Access-Control-Allow-Headers', 
     'Origin, X-Requested-With, Content-Type, Accept, Authorization'
   )
-  //browser cheks if it can make the request
+
+  //browser checks if it can make the request
   //which options do i have? says the browser
   if (req.method === 'OPTIONS') { 
     res.header('Access-Control-Allow-Methods', 'PUT, POST, PATCH, DELETE, GET')
@@ -25,6 +26,7 @@ app.use((req,res,next) => {
   }
   next()
 })
+
 // * gives access to any client. could also restrict it, ie localhost:8080...
 // console.log('here is PORT variable: ', process.env.PORT);
 // console.log('here is PORT variable: ', process.env);
@@ -45,23 +47,21 @@ app.post('/postag-text', async (req,res) => {
 })
 
 
-// TODO: mvp. get one word accross
-app.get('/postag-word', (req,res) => {
-  console.log('in server') //TODO:
+// // TODO: mvp. get one word accross
+// app.get('/postag-word', (req,res) => {
+//   console.log('in server') //TODO:
 
-  if (!req.query.word) {
-    return res.send({
-      error: 'you must provide the word to postag'
-    })
-  }
-  posTagEnWord(req.query.word)
-  .then(data => {
-    console.log(data)
-    res.send({ tag: data })
-  });
-})
-
-
+//   if (!req.query.word) {
+//     return res.send({
+//       error: 'you must provide the word to postag'
+//     })
+//   }
+//   posTagEnWord(req.query.word)
+//   .then(data => {
+//     console.log(data)
+//     res.send({ tag: data })
+//   });
+// })
 
 
 app.get('/translated-text', (req,res) => {
@@ -80,7 +80,6 @@ app.get('/translated-text', (req,res) => {
     // })
   });
 })
-
 
 
 app.get('*', (req, res) => {

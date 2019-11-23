@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { startGenFGP } from '../actions/fillGapsPrep'
+import { navigateToFGP } from '../actions/fillGapsPrep'
 
 
 class TextHighlightBar extends React.Component {
@@ -187,7 +187,10 @@ class TextHighlightBar extends React.Component {
           {this.props.fleschReadingEase && <p>Reading Ease: {this.props.fleschReadingEase}</p>}
         </div>
 
-        <button onClick={this.props.startGenFGP}>Preposition Training</button>
+        <button 
+          disabled={this.props.emptyFTGPrepEx}
+          onClick={this.props.navigateToFGP}
+        >Preposition Training</button>
 
       </div>
     )
@@ -196,6 +199,7 @@ class TextHighlightBar extends React.Component {
 
 const mapStateToProps = (state) => {
    return {
+       emptyFTGPrepEx: state.fillGapsPrepReducer.exercisesFGP.length === 0,
        tags: state.inputTextData.tags,
        fleschReadingEase: state.inputTextData.fleschReadingEase,
        fleschKincaidGradeLevel: state.inputTextData.fleschKincaidGradeLevel > 13 ? 'University' : state.inputTextData.fleschKincaidGradeLevel
@@ -203,7 +207,7 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  startGenFGP: () => dispatch(startGenFGP())
+  navigateToFGP: () => dispatch(navigateToFGP())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(TextHighlightBar);

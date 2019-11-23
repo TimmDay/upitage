@@ -1,6 +1,8 @@
 //action
 import sentenceSplitter from '../utils/sentence-segmenter'
 import { getFleschKincaidStats } from '../utils/readability-stats/flesch-kincaid'
+import { startGenFGP } from '../actions/fillGapsPrep'
+
 
 export const storeInputText = (data = {}) => ({
   type: 'STORE_INPUT_TEXT',
@@ -70,6 +72,10 @@ export const startPosProcessing = (src ={}) => {
     }
     await dispatch(storeInputText(obj))
     await dispatch(toggleIsLoading(false)) //needs its own dispatch to trigger render to remove loader
+    
+    //generate data for FTG Prep ex. so it is ready before user clicks btn
+    await dispatch(startGenFGP())
+    
     return obj
   }
 }

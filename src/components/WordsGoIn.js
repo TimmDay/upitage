@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import TextHighlightBar from './TextHighlightBar'
 import TextScrapeBar from './TextScrapeBar'
 import LoadingPage from './LoadingPage'
+import TextInput from './TextInput'
 
 
 
@@ -11,7 +12,6 @@ class WordsGoIn extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      textBody: ''
     }
   }
 
@@ -42,10 +42,13 @@ class WordsGoIn extends React.Component {
 
         <section>
           {
-            !this.props.arrWords ? (
-              <p>no source text</p>
+            this.props.arrWords.length === 0 ? (
+              < TextInput />
             ) : (
               <div className='display-text'>
+
+                {/* < TextInput /> */}
+
                 <p>
                   {this.props.arrWords.map((w,i) => (
                     <span

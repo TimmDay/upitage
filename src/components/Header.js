@@ -29,12 +29,12 @@ export const Header = (props) => (
           <img
             className='header__spoken'
             src={mapLangToImage(props.spoken)} 
-            alt="display users spoken language"
+            // alt="display users spoken language"
           />
           <img 
             className='header__target'
             src={mapLangToImage(props.target)} 
-            alt="display users language to learn"
+            // alt="display users language to learn"
           />
           <button className="button button--link" onClick={props.startLogout}>Logout</button>
         </div>

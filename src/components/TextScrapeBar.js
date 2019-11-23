@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import TextInput from './TextInput'
 
 import { startPosProcessing, startFleschKincaid } from '../actions/inputText'
 import nyt_politics from './../utils/text_scraper/en_nyt_politics';
@@ -37,8 +36,6 @@ class TextScrapeBar extends React.Component {
 
       <div className="content-container">
         <div className='text-scrape-bar'>
-
-          < TextInput />
 
           <img 
             className="text-scrape-bar__icon" 

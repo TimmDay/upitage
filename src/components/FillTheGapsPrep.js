@@ -32,6 +32,7 @@ class FillTheGapsPrep extends React.Component {
 
   handleClickNextEx = async () => {
     const numExercises = await this.props.exercises.length
+    
     if (this.state.exerciseIndex < numExercises-1) {
       await this.setState(prevState => ({
         exerciseIndex: prevState.exerciseIndex + 1,
