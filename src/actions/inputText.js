@@ -1,8 +1,7 @@
 //action
 import sentenceSplitter from '../utils/sentence-segmenter'
 import { getFleschKincaidStats } from '../utils/readability-stats/flesch-kincaid'
-import { startGenFGP } from '../actions/fillGapsPrep'
-
+import { startGenFGP, clearFGPData } from '../actions/fillGapsPrep'
 
 export const storeInputText = (data = {}) => ({
   type: 'STORE_INPUT_TEXT',
@@ -14,7 +13,17 @@ export const storeInputText = (data = {}) => ({
   tagsBySent: data.tagsBySent
 })
 
+// TODO: clears the entire redux store of text and any related data
 export const clearInputText = () => ({ type: 'CLEAR_INPUT_TEXT' })
+
+// clearFGPData
+export const startClearInputText = () => {
+  return async (dispatch) => {
+    await dispatch(clearInputText())
+    await dispatch(clearFGPData())
+  }
+}
+
 
 export const toggleIsLoading = (bool) => ({
   type: 'TOGGLE_IS_LOADING',
@@ -25,14 +34,14 @@ export const startPosProcessing = (src ={}) => {
   console.log(src)
   
   return async (dispatch) => {
-    await dispatch(clearInputText()) //clear the redux store for the incoming data
+    await dispatch(startClearInputText()) //clear the redux store for the incoming data
     await dispatch(toggleIsLoading(true))
 
     const title = src.title || ''
     let text = src.text || ''
 
-    //remove any whitespaces and newline chars
-    text = text.replace(/(\r\n|\n|\r)/gm, " ").trim(); 
+    //remove excess whitespace and newline chars
+    text = text.replace(/(\r\n|\n|\r)/gm, " ").trim()
 
     const sents = sentenceSplitter(text)
     let arrWords = [], arrTags = [], arrWordsAndTags = []
@@ -67,25 +76,18 @@ export const startPosProcessing = (src ={}) => {
       sentences: sents,
       wordsBySent: arrWordsBySent,
       tagsBySent: arrTagsBySent
-      // isLoading: false
     }
     await dispatch(storeInputText(obj))
     await dispatch(toggleIsLoading(false)) //needs its own dispatch to trigger render to remove loader
-    
-    //generate data for FTG Prep ex. so it is ready before user clicks btn
-    await dispatch(startGenFGP())
+    await dispatch(startGenFGP()) //gen data for FTG Prep ex. so ready before user clicks btn
     
     return obj
   }
 }
 
-
 export const startFleschKincaid = (text='') => {
   return async (dispatch) => {
-    console.log('start FK')
     const obj = getFleschKincaidStats(text)
-    console.log(obj)
-    
     dispatch(storeFleschKincaid(obj))
   }
 }

@@ -1,15 +1,13 @@
 .words-go-in {
   display: flex;
   flex-direction: column;
-  // display: flex;
-  // justify-content: center;
-  // margin: 0 auto;
-  // text-align: center;
+  justify-content: center;
 }
 
 .words-go-in section {
   display: flex;
   flex-direction: row;
+  justify-content: center;
 }
 
 //not sidebar

@@ -27,27 +27,27 @@ class TextInput extends React.Component {
   
   render () {
     return (
-      <React.Fragment>
-      <form
-        className='text-input__form'
-        onSubmit={this.handleSubmitSourceForPOS}
-      >
-        <textarea 
-          className='text-input__textarea'
-          value={this.state.textBody}
-          onChange={this.handleChangeTextArea}
-          placeholder='paste own text'
-        />
-      </form>
+      <div className='text-input'>
+        <form
+          className='text-input__form'
+          onSubmit={this.handleSubmitSourceForPOS}
+        >
+          <textarea 
+            className='text-input__textarea'
+            value={this.state.textBody}
+            onChange={this.handleChangeTextArea}
+            placeholder='paste own text'
+          />
+        </form>
 
-      <button 
-        className='button'
-        disabled={!this.state.textBody}
-        onClick={this.handleSubmitSourceForPOS}  
-      >
-        submit text
-      </button>
-      </React.Fragment>
+        <button 
+          className='button'
+          disabled={!this.state.textBody}
+          onClick={this.handleSubmitSourceForPOS}  
+        >
+          submit text
+        </button>
+      </div>
     )
   }
 }

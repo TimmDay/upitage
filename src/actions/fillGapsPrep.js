@@ -11,10 +11,11 @@ import { enPrepositionsCommon, enPrepositionsTrickier } from '../utils/POS/en-co
   // - array of possibleAnswerSets (array) (for each blank)
     // contains tuples. answer, and whether it is correct or not
 
-
 export const navigateToFGP = () => {
   history.push('/fill-gaps-p');
 }
+
+export const clearFGPData = () => ({ type: 'CLEAR_FTGPREP_DATA' })
 
 export const startGenFGP = () => {
   return async (dispatch, getState) => {
