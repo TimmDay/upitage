@@ -32,7 +32,7 @@ export const startPosProcessing = (src ={}) => {
     let text = src.text || ''
 
     //remove any whitespaces and newline chars
-    text = text.replace(/(\r\n|\n|\r)/gm, "").trim(); 
+    text = text.replace(/(\r\n|\n|\r)/gm, " ").trim(); 
 
     const sents = sentenceSplitter(text)
     let arrWords = [], arrTags = [], arrWordsAndTags = []

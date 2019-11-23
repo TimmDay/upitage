@@ -26,7 +26,6 @@ export const startGenFGP = () => {
     // go through each sentence
     tagsBySent.forEach((sent, i) => {
       // restriction: exercises only for shorter sentences
-      // TODO: restriction, sentence must have at least 1 prep to count as ex
       if (sent.length > 33) {// do nothing
       } else {
         let sentenceArr = [] //will contains strings for words, with ___ for preps
@@ -49,6 +48,7 @@ export const startGenFGP = () => {
           }
         }) 
 
+        // restriction: at least one prep in sentence to be a viable exercise
         if (!atLeastOnePrep) {
           return; //abandon this sentence, go to next
         }
