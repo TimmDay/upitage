@@ -56,7 +56,6 @@ export const startPosProcessing = (src ={}) => {
         tempArrWordsThisSent.push(bits[0])
         tempArrTagsThisSent.push(bits[1])
       })
-
       arrWordsBySent.push(tempArrWordsThisSent)
       arrTagsBySent.push(tempArrTagsThisSent)
     }

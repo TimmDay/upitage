@@ -37,30 +37,24 @@ class TextInput extends React.Component {
           value={this.state.textBody}
           onChange={this.handleChangeTextArea}
           placeholder='paste own text'
-          // onSubmit={this.handleSubmitSourceForPOS}
         />
       </form>
 
       <button 
-        // className='button'
+        className='button'
         disabled={!this.state.textBody}
         onClick={this.handleSubmitSourceForPOS}  
-      >submit text</button>
+      >
+        submit text
+      </button>
       </React.Fragment>
     )
   }
 }
-
-
-const mapStateToProps = (state) => {
-   return {
-       
-   }
-};
 
 const mapDispatchToProps = (dispatch) => ({
   startPosProcessing: (src) => dispatch(startPosProcessing(src)),
   startFleschKincaid: (str) => dispatch(startFleschKincaid(str))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(TextInput);
+export default connect(undefined, mapDispatchToProps)(TextInput);

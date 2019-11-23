@@ -16,7 +16,10 @@ class TextHighlightBar extends React.Component {
         isHighlightVerb: false,
         isHighlightNoun: false,
         isHighlightAdj: false,
-        isHighlightPrep: false
+        isHighlightPrep: false,
+        isHighlightAdv: false,
+        isHighlightDet: false,
+        isHighlightW: false
       }))
     }
   }
@@ -190,7 +193,9 @@ class TextHighlightBar extends React.Component {
         <button 
           disabled={this.props.emptyFTGPrepEx}
           onClick={this.props.navigateToFGP}
-        >Preposition Training</button>
+        >
+          Preposition Training
+        </button>
 
       </div>
     )
