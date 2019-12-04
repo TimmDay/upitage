@@ -103,7 +103,7 @@ class FillTheGapsPrep extends React.Component {
       document.getElementsByClassName('ftgp__sentence-word')[a.indexInSentence].textContent = ` ${a.word} `
       
       // [] update redux tracker for correct answer
-      console.log('CLICKED ANSWER: ' + this.state.answerIndexFocus)
+      console.log('CLICKED ANSWER FOR GAP: ' + this.state.answerIndexFocus)
       // exIndex, ansIndex
       this.props.updateCorrectAnswer(this.state.exerciseIndex, this.state.answerIndexFocus)
 
@@ -192,7 +192,7 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  updateCorrectAnswer: (obj) => dispatch(updateCorrectAnswer(obj))
+  updateCorrectAnswer: (ind1, ind2) => dispatch(updateCorrectAnswer(ind1, ind2))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(FillTheGapsPrep);

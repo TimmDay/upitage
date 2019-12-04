@@ -1,19 +1,5 @@
-import { history } from '../routers/AppRouter';
 import { shuffleInPlace } from '../utils/arrayTools'
 import { enPrepositionsCommon, enPrepositionsTrickier } from '../utils/POS/en-common-prep'
-
-// we want to collect the (shorter) sentences from the text that
-  // - have at least 1 preposition
-
-// and store this info in an array prepExecises, 
-  // whose members are tuples
-  // - sentence (array of strings, with blanks for the preps) 
-  // - array of possibleAnswerSets (array) (for each blank)
-    // contains tuples. answer, and whether it is correct or not
-
-export const navigateToFGP = () => {
-  history.push('/fill-gaps-p');
-}
 
 export const clearFGPData = () => ({ type: 'CLEAR_FTGPREP_DATA' })
 

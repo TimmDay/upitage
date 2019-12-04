@@ -7,10 +7,22 @@
   display: flex;
   align-items: center;
   justify-content: center;
-
   border-radius: 50%;
-  background-color: orange;
   margin: 0 0.5rem;
   height: 3rem;
   width: 3rem;
+
+  &--none {
+    @extend .answer-tracker__c;
+    background-color: paleturquoise; //TODO:
+  }
+  &--some {
+    @extend .answer-tracker__c;
+    background-color: yellow; //TODO:
+  }
+  &--all {
+    @extend .answer-tracker__c;
+    background-color: green; //TODO:
+  }
+
 }

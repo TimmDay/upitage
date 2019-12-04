@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { navigateToFGP } from '../actions/fillGapsPrep'
+import { history } from '../routers/AppRouter';
+// import { navigateToFGP } from '../actions/fillGapsPrep'
 
 
 class TextHighlightBar extends React.Component {
@@ -192,7 +193,7 @@ class TextHighlightBar extends React.Component {
 
         <button 
           disabled={this.props.emptyFTGPrepEx}
-          onClick={this.props.navigateToFGP}
+          onClick={() => history.push('/fill-gaps-p')}
         >
           Preposition Training
         </button>
@@ -211,8 +212,8 @@ const mapStateToProps = (state) => {
    }
 };
 
-const mapDispatchToProps = (dispatch) => ({
-  navigateToFGP: () => dispatch(navigateToFGP())
-});
+// const mapDispatchToProps = (dispatch) => ({
+//   navigateToFGP: () => dispatch(navigateToFGP())
+// });
 
-export default connect(mapStateToProps, mapDispatchToProps)(TextHighlightBar);
+export default connect(mapStateToProps)(TextHighlightBar);

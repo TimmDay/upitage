@@ -1,4 +1,4 @@
-const defaultState = { exercisesFGP: [] }
+const defaultState = { exercisesFGP: [], deepRerenderToggle: false }
 
 export default (state = defaultState, action) => {
   switch (action.type) {
@@ -13,16 +13,13 @@ export default (state = defaultState, action) => {
       return defaultState
 
     case 'UPDATE_CORRECT_ANSWER':
+      const newObj = JSON.parse(JSON.stringify(state.exercisesFGP))
+      newObj[action.exIndex].trackUserAnswers[action.ansIndex] = 1
+
       return {
         ...state,
-        exercisesFGP: state.exercisesFGP.map(
-          (ex, i) => i === action.exIndex ? { 
-            ...ex, 
-            trackUserAnswers: [1,2,3] //want the existing, with rel 0 => 1
-            //ex.trackUserAnswers.map((ans,i) => i === action.ansIndex ? 1 : ans)
-            // the existing one with rel val updated to 1
-          } : { ...ex }
-        )
+        exercisesFGP: newObj,
+        deepRerenderToggle: !state.deepRerenderToggle
       }
     default:
       return state
