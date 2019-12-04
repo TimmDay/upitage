@@ -1,5 +1,5 @@
 .text-input {
-text-align: center;
+  text-align: center;
 }
 
 .text-input__form {
@@ -8,11 +8,12 @@ text-align: center;
 }
 
 .text-input__textarea {
-  margin: 0 auto;
-  color: red;
+  margin: $l-size 0 $l-size $l-size;
+  // color: red;
   width: 70vw;
-  height: 80vh;
-  padding: 20px;
+  height: 60vh;
+  padding: 5rem 7rem;
+  line-height: 1.6;
   box-sizing: border-box;
   border: solid 4px #eee;
   border-radius: 5px;

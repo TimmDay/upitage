@@ -8,7 +8,7 @@ const ButtonClearInputText = (props) => (
     className='btn-clearInputText'
     onClick={props.startClearInputText}
   >
-    enter some new text
+    enter new text
   </button>
 );
 

@@ -1,33 +1,6 @@
-.words-go-in {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
 .words-go-in section {
   display: flex;
   flex-direction: row;
   justify-content: center;
 }
 
-//not sidebar
-.display-text {
-  // margin-left: 30px;
-  flex-basis: 0;
-  flex-grow: 999;
-  text-align: center;
-  // justify-content: center;
-  padding: 0 $l-size;
-  margin-left: $m-size;
-}
-
-.display-text p {
-  font-size: $l-size;
-}
-
-// sidebar
-.text-highlight-bar {
-  flex-basis: 20rem;
-  flex-grow: 1;
-  margin: $l-size $m-size 0 $m-size;
-}

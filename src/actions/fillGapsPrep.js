@@ -30,7 +30,7 @@ export const startGenFGP = () => {
       if (sent.length > 33) {// do nothing
       } else {
         let sentenceArr = [] //will contains strings for words, with ___ for preps
-        let answerSets = [] // will contain arr of [{ value: 'word', correct: bool }], in order of prep appearance in sentence  
+        let answerSets = [] // will contain arr of [{ value: 'word', correct: bool }], in order of prep appearance in sentence
         let atLeastOnePrep = false
 
         // go through each tag of this sent
@@ -86,7 +86,11 @@ export const startGenFGP = () => {
         })
 
         // submit to exercise arr
-        exercisesFGP.push({ sentence: sentenceArr, answerSet: answerSets })
+        exercisesFGP.push({ 
+          sentence: sentenceArr, 
+          answerSet: answerSets,
+          trackUserAnswers: Array.from(Array(answerSets.length), () => 0)
+        })
       }
 
     })
@@ -103,4 +107,10 @@ export const startGenFGP = () => {
 const storeFGP = (exercisesFGP) => ({
   type: 'STORE_FGP_EX',
   exercisesFGP: exercisesFGP
+})
+
+export const updateCorrectAnswer = (exIndex, ansIndex) => ({
+  type: 'UPDATE_CORRECT_ANSWER',
+  exIndex,
+  ansIndex
 })

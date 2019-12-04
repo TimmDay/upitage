@@ -1,12 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
-
-
-  /*
+ 
+const TextEnhanced = (props) => {
+    /*
   handleHoverWordForTranslation = (evt) => {
-    console.log(evt)
-    console.log(evt.target)
-    console.log(evt.target.innerText)
     const word = evt.target.innerText;
     console.log('WORD ROM COMP: ', word)
     fetch('http://localhost:3000/translated-text?word=' + word, { mode: 'no-cors' })
@@ -18,11 +15,8 @@ import { connect } from 'react-redux';
     })
   }
   */
- 
-const TextEnhanced = (props) => {
-
   return (
-    <div className='display-text'>
+    <div className='text-enhanced'>
       <p>
         {props.arrWords.map((w,i) => (
           <span
@@ -30,8 +24,10 @@ const TextEnhanced = (props) => {
             // onMouseEnter={this.handleHoverWord}
             // onMouseLeave={this.handleHoverWordLeave}
             key={`key${w}${i}`}
-            // leading space if normal char, no space if punctuation
-          >{/[.',]/.test(w[0]) ? `${w}` : ` ${w}`}</span>
+            // leading space if normal char, no space if punctuation ('end.' not 'end .')
+          >
+            {/[.',]/.test(w[0]) ? `${w}` : ` ${w}`}
+          </span>
         ))}
       </p>
     </div>

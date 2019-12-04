@@ -1,6 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import AnswerTrackerFTGP from './AnswerTrackerFTGP';
+import { updateCorrectAnswer } from '../actions/fillGapsPrep'
 
 // next gap btn disabled if all questions are answered 
 
@@ -77,31 +79,41 @@ class FillTheGapsPrep extends React.Component {
     // remove class from other gaps
   }
 
-  handleClickAnswer = (a) => {
+  handleClickAnswer = (evt, a) => {
+    
     if (a.correct) {
       console.log(a.indexInSentence)
       console.log(this.state.answerIndexFocus)
       console.log(this.props.exercises[this.state.exerciseIndex].answerSet.length-1)
-      
+
+      // if all answers for exercise are correct -> redux update
+
       // move focus to next gap (IFF there is another gap)
+      // TODO: slide transition in the next answer set
       const lastGapIndex = this.props.exercises[this.state.exerciseIndex].answerSet.length-1
       if (this.state.answerIndexFocus < lastGapIndex) {
         this.handleClickNextGapInEx()
-
       } else {
-
-        // if still unfilled gaps, go to the first remaining
-
-        // move focus to next button, make whole sentence green animation,
-          // plus points animation
-        // OR just go to next exercise
+        // TODO: if still unfilled gaps, go to the first remaining
+        // add focus
+        // if not unfilled gaps, some sort of congrats animation and head to next exercise
       }
-      
 
-      // render the correct word in the sentence
+      // render the correct word in the sentence gap
       document.getElementsByClassName('ftgp__sentence-word')[a.indexInSentence].textContent = ` ${a.word} `
+      
+      // [] update redux tracker for correct answer
+      console.log('CLICKED ANSWER: ' + this.state.answerIndexFocus)
+      // exIndex, ansIndex
+      this.props.updateCorrectAnswer(this.state.exerciseIndex, this.state.answerIndexFocus)
+
+
 
       // can we change it in the data instead?
+    } else {
+
+      evt.target.className = 'ftgp__answer-btn ftgp__btn-incorrect'
+
     }
     
 
@@ -145,7 +157,8 @@ class FillTheGapsPrep extends React.Component {
               <button
                 key={`key${a.word}${i}`}
                 className='ftgp__answer-btn'
-                onClick={() => this.handleClickAnswer(a)}
+                onClick={(evt) => this.handleClickAnswer(evt, a)}
+                onMouseDown={(evt) => evt.preventDefault()}
               >{`${a.word}`}</button>
             ))
           }
@@ -164,6 +177,8 @@ class FillTheGapsPrep extends React.Component {
         <div>
           <Link to="/words-go-in">back</Link>
         </div>
+
+        < AnswerTrackerFTGP />
       </div>
     )
   }
@@ -171,13 +186,13 @@ class FillTheGapsPrep extends React.Component {
 
 //each exercise has sentence and answerSet (arr of arrs for each prep in sentence)
 const mapStateToProps = (state) => {
-   return {
+  return {
     exercises: state.fillGapsPrepReducer.exercisesFGP
-   }
+  }
 };
 
 const mapDispatchToProps = (dispatch) => ({
-   
+  updateCorrectAnswer: (obj) => dispatch(updateCorrectAnswer(obj))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(FillTheGapsPrep);

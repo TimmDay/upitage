@@ -6,23 +6,23 @@ import { startPosProcessing, startFleschKincaid } from '../actions/inputText'
 class TextInput extends React.Component {
   constructor(props) {
       super(props);
-      this.state = {
-        textBody: ''
-      }
+      this.state = { textBody: '' }
   }
 
   handleChangeTextArea = (evt) => {
     this.setState({textBody: evt.target.value})
   }
 
-  // full text (use request body)
-  handleSubmitSourceForPOS = async (evt) => {
-    evt.preventDefault();
-    const obj = { text: this.state.textBody }
-    
-    const result = await this.props.startPosProcessing(obj)
+  handleSubmitSourceForPOS = (evt) => {
+    this.props.startPosProcessing({ text: this.state.textBody })
     // only if english text
     this.props.startFleschKincaid(this.state.textBody)
+  }
+
+  handleOnEnterPress = (evt) => {
+    if (evt.keyCode == 13 && evt.shiftKey === false) {
+      this.handleSubmitSourceForPOS()
+    }
   }
   
   render () {
@@ -37,6 +37,7 @@ class TextInput extends React.Component {
             value={this.state.textBody}
             onChange={this.handleChangeTextArea}
             placeholder='paste own text'
+            onKeyDown={this.handleOnEnterPress}
           />
         </form>
 

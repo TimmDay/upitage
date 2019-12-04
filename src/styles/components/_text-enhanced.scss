@@ -1,0 +1,10 @@
+.text-enhanced {
+  flex-basis: 0;
+  flex-grow: 999;
+  padding: 0 $l-size * 4;
+  margin-left: $m-size;
+}
+
+.text-enhanced p {
+  font-size: $l-size;
+}

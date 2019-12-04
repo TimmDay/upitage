@@ -25,6 +25,20 @@
   font-size: $m-size;
 }
 
+.ftgp__btn-incorrect {
+  background-color: $red-marker;
+  color: #fff;
+  filter: blur(1px);
+  opacity: 50%;
+}
+
+.ftgp__btn-correct {
+  background-color: $green-marker;
+  color: #fff;
+  // filter: blur(1px);
+  opacity: 50%;
+}
+
 
 
 .slide-in {

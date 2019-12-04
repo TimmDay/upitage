@@ -1,0 +1,16 @@
+.answer-tracker {
+  display: flex;
+  justify-content: center;
+}
+
+.answer-tracker__c {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+  background-color: orange;
+  margin: 0 0.5rem;
+  height: 3rem;
+  width: 3rem;
+}

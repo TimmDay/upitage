@@ -6,19 +6,20 @@ import TextEnhanced from './TextEnhanced'
 import TextHighlightBar from './TextHighlightBar'
 import TextScrapeBar from './TextScrapeBar'
 import ButtonClearInputText from './ButtonClearInputText'
-// import clearInputText from '../actions/inputText'
 
 
 const WordsGoIn = (props) => {
-  const [showHighlightMenu, setShowHighlightMenu] = useState(false);
+  const [showHighlightMenu, setShowHighlightMenu] = useState(true);
 
   return (
     <div className='words-go-in'>
       {props.isLoading && <LoadingPage />} 
       {/* < TextScrapeBar /> */}
       
-      <ButtonClearInputText />
+      {props.arrWords.length !== 0 && <ButtonClearInputText />}
+
       <button 
+        // className='button'
         onClick={() => setShowHighlightMenu(!showHighlightMenu)}
       >
         show enhancement menu
@@ -41,7 +42,6 @@ const WordsGoIn = (props) => {
   )
 }
 
-
 const mapStateToProps = (state) => {
    return {
        arrWords: state.inputTextData.words,
@@ -49,8 +49,4 @@ const mapStateToProps = (state) => {
    }
 };
 
-const mapDispatchToProps = (dispatch) => ({
-  // clearInputText: () => dispatch(clearInputText())
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(WordsGoIn);
+export default connect(mapStateToProps)(WordsGoIn);
