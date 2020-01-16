@@ -44,30 +44,19 @@ const FillTheGapsPrep = (props) => {
   }
 
   /**
-   * knows which exercise user is in
-   * which gap of that exercise
-   * results in proper render of the answer set for that exercise
+   * handleClickNextGapInEx
+   * increments indexGapFocus, or cycles it back to the start 
+   * adds styles to show user where focus is
    */
   const handleClickNextGapInEx = async () => {
-    // increment indexGapFocus, causing re-render
-    console.log(`exerciseIndex: ${exerciseIndex}`)
-
-    const maxAnswerSetIndex = props.exercises[exerciseIndex].answerSet.length
-    console.log(`maxAnswerSetIndex: ${maxAnswerSetIndex}`)
-
-    const currentIndexGapFocus = indexGapFocus
-    console.log(`current indexGapFocus: ${currentIndexGapFocus}`)
-
-    if (currentIndexGapFocus < maxAnswerSetIndex) { //increment 
-      await setIndexGapFocus(indexGapFocus + 1)
-      console.log(`indexGapFocus: ${indexGapFocus}`)
+    const maxAnswerSetIndex = props.exercises[exerciseIndex].answerSet.length-1;
+    if (indexGapFocus < maxAnswerSetIndex) { // increment indexGapFocus, causing re-render 
+      await setIndexGapFocus(indexGapFocus + 1);
       // remove highlight class from other elements
       // add highlight class to this element
     } else {
       await setIndexGapFocus(0)
     }
-    console.log(`indexGapFocus: ${indexGapFocus}`)
-    console.log('back to start')
   }
 
   //TODO:
