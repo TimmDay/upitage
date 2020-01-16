@@ -11,8 +11,6 @@ import { updateCorrectAnswer } from '../actions/fillGapsPrep'
 // track 'score' for user
 
 // make focus auto go to first btn, so user can tab through them and press enter
-// focused gap gets a nice 'blur' css style
-// first gap in sentence has class 'active' (gap corresponds with index of answer set)
 
 // correct score gives points and fills in the answer with green text, 
 // incorrect score minuses some points, fills in nothing and movs to next gap
@@ -20,8 +18,6 @@ import { updateCorrectAnswer } from '../actions/fillGapsPrep'
 // if user clicks next Ex before filling all gaps, how can they come back to it?
   // remove any score from the exercise, put it to back of queue
 
-//handleClickGap
-  //changes the answerSet to that gap
 
 const FillTheGapsPrep = (props) => {
   const [exerciseIndex, setExerciseIndex] = useState(0);
@@ -32,18 +28,18 @@ const FillTheGapsPrep = (props) => {
       highlightFocusedGap()
     });
 
-  const handleClickNextEx = async () => {
-    const numExercises = await props.exercises.length
+  const handleClickNextEx = () => {
+    const maxExerciseIndex = props.exercises.length -1
     
     // TODO: clear given answers
     // everything with class ftgp__sentence-gap is turned back into ____
     
-    if (exerciseIndex < numExercises-1) {
-      await setExerciseIndex(exerciseIndex + 1)
-      await setIndexGapFocus(0)
+    if (exerciseIndex < maxExerciseIndex) {
+      setIndexGapFocus(0)
+      setExerciseIndex(exerciseIndex + 1)
     } else {
-      await setExerciseIndex(0)
-      await setIndexGapFocus(0)
+      setIndexGapFocus(0)
+      setExerciseIndex(0)
     }
   }
 
