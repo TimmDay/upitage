@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import AnswerTrackerFTGP from './AnswerTrackerFTGP';
@@ -24,9 +24,13 @@ import { updateCorrectAnswer } from '../actions/fillGapsPrep'
   //changes the answerSet to that gap
 
 const FillTheGapsPrep = (props) => {
-
   const [exerciseIndex, setExerciseIndex] = useState(0);
   const [indexGapFocus, setIndexGapFocus] = useState(0);
+
+    // Similar to componentDidMount and componentDidUpdate:
+    useEffect(() => {
+      highlightFocusedGap()
+    });
 
   const handleClickNextEx = async () => {
     const numExercises = await props.exercises.length
@@ -44,15 +48,28 @@ const FillTheGapsPrep = (props) => {
   }
 
   /**
+   * highlightFocusedGap
+   * adds styles to the current indexGapFocus to show user where focus is
+   */
+  const highlightFocusedGap = () => {
+    const gaps = document.getElementsByClassName('ftgp__sentence-gap')
+    const gapsClasses = 'ftgp__sentence-word ftgp__sentence-gap'
+
+    for (let i=0; i<gaps.length; i++) {
+      gaps[i].className = gapsClasses
+      if (i === indexGapFocus) gaps[i].className += ' ftgp__sentence-gap--focus'
+    }
+  }
+  
+  /**
    * handleClickNextGapInEx
    * increments indexGapFocus, or cycles it back to the start 
-   * adds styles to show user where focus is
    */
   const handleClickNextGapInEx = async () => {
     const maxAnswerSetIndex = props.exercises[exerciseIndex].answerSet.length-1;
     if (indexGapFocus < maxAnswerSetIndex) { // increment indexGapFocus, causing re-render 
       await setIndexGapFocus(indexGapFocus + 1);
-      // remove highlight class from other elements
+      highlightFocusedGap()
       // add highlight class to this element
     } else {
       await setIndexGapFocus(0)
@@ -108,15 +125,11 @@ const FillTheGapsPrep = (props) => {
       // can we change it in the data instead?
     } else {
       evt.target.className = 'ftgp__answer-btn ftgp__btn-incorrect'
-
     }
     // if all sentence gaps are full, move focus to the arrow for the next exercise
   }
 
-  // TODO:
-  // gaps get a special highlight, especially when active
-  // filled in words get the preposition color
-  const GAP_RENDER = '___'
+  const GAP_RENDER = '___'  //TODO: put it in a global constants file at some point
 
   return (
     <div className='content-container'>
@@ -126,9 +139,8 @@ const FillTheGapsPrep = (props) => {
       {
         props.exercises[exerciseIndex].sentence.map((w,i) => {
           let wordClasses = 'ftgp__sentence-word'
-          // let clickFcn
-          if (w === GAP_RENDER) { //TODO: gap may change. put it in a global constants file at some point
-            console.log('gap here, add to className')
+
+          if (w === GAP_RENDER) {
             wordClasses += ' ftgp__sentence-gap'
           }
           return (
