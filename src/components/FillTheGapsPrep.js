@@ -23,17 +23,16 @@ const FillTheGapsPrep = (props) => {
   const [exerciseIndex, setExerciseIndex] = useState(0);
   const [indexGapFocus, setIndexGapFocus] = useState(0);
 
-    // Similar to componentDidMount and componentDidUpdate:
-    useEffect(() => {
-      highlightFocusedGap()
-    });
+  // Similar to componentDidMount and componentDidUpdate:
+  useEffect(() => {
+    highlightFocusedGap()
+  });
+
+  const GAP_BLANK = '___'
 
   const handleClickNextEx = () => {
-    const maxExerciseIndex = props.exercises.length -1
-    
-    // TODO: clear given answers
-    // everything with class ftgp__sentence-gap is turned back into ____
-    
+    const maxExerciseIndex = props.exercises.length -1 
+    repopulateGaps() // wipe any visible answers from last ex
     if (exerciseIndex < maxExerciseIndex) {
       setIndexGapFocus(0)
       setExerciseIndex(exerciseIndex + 1)
@@ -41,6 +40,15 @@ const FillTheGapsPrep = (props) => {
       setIndexGapFocus(0)
       setExerciseIndex(0)
     }
+  }
+
+  /**
+   * repopulateGaps
+   * ensure that all ftgp__sentence-gap elements display the blank
+   */
+  const repopulateGaps = () => {
+    const gaps = document.getElementsByClassName('ftgp__sentence-gap')
+    for (let i=0; i<gaps.length; i++) gaps[i].textContent = GAP_BLANK;
   }
 
   /**
@@ -63,18 +71,8 @@ const FillTheGapsPrep = (props) => {
    */
   const handleClickNextGapInEx = async () => {
     const maxAnswerSetIndex = props.exercises[exerciseIndex].answerSet.length-1;
-    if (indexGapFocus < maxAnswerSetIndex) { // increment indexGapFocus, causing re-render 
-      await setIndexGapFocus(indexGapFocus + 1);
-      highlightFocusedGap()
-      // add highlight class to this element
-    } else {
-      await setIndexGapFocus(0)
-    }
-  }
-
-  //TODO:
-  const replaceAllAnswersWithGaps = () => {
-
+    if (indexGapFocus < maxAnswerSetIndex) setIndexGapFocus(indexGapFocus + 1);
+    else setIndexGapFocus(0);
   }
 
   //TODO:
@@ -125,27 +123,29 @@ const FillTheGapsPrep = (props) => {
     // if all sentence gaps are full, move focus to the arrow for the next exercise
   }
 
-  const GAP_RENDER = '___'  //TODO: put it in a global constants file at some point
-
   return (
     <div className='content-container'>
       {/* <p className='ftgp__title'>Fill The Gaps!</p> */}
-
       <div className='ftgp__sentence slide-in'>
       {
         props.exercises[exerciseIndex].sentence.map((w,i) => {
           let wordClasses = 'ftgp__sentence-word'
 
-          if (w === GAP_RENDER) {
-            wordClasses += ' ftgp__sentence-gap'
-          }
+          console.log(w)
+          
+          if (w === GAP_BLANK) wordClasses += ' ftgp__sentence-gap'
+          if (w === '-LRB-') w = ' ('
+          if (w === '-RRB-') w = ')'
+          
+          console.log(w)
+
           return (
           <span
             key={`key${w}${i}`}
             className={wordClasses}
-            onClick={(w === GAP_RENDER) ? handleClickGap : ()=>console.log('gap click')} //TODO: ask if ok on SO
+            onClick={(w === GAP_BLANK) ? handleClickGap : ()=>console.log('gap click')} //TODO: ask if ok on SO
           >
-            {/[.',]/.test(w[0]) ? `${w}` : ` ${w}`}
+            {/[.',()]/.test(w[0]) ? `${w}` : ` ${w}`}
             {/* {`${w} `} */}
           </span>
         )})
