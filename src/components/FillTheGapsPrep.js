@@ -4,32 +4,20 @@ import { Link } from 'react-router-dom';
 import AnswerTrackerFTGP from './AnswerTrackerFTGP';
 import { updateCorrectAnswer } from '../actions/fillGapsPrep'
 
-// next gap btn disabled if all questions are answered 
-
-// count num of answer sets (= total questions)
-// track num correct for a percentage
-// track 'score' for user
-
-// make focus auto go to first btn, so user can tab through them and press enter
-
-// correct score gives points and fills in the answer with green text, 
-// incorrect score minuses some points, fills in nothing and movs to next gap
-
-// if user clicks next Ex before filling all gaps, how can they come back to it?
-  // remove any score from the exercise, put it to back of queue
-
 
 const FillTheGapsPrep = (props) => {
   const [exerciseIndex, setExerciseIndex] = useState(0);
   const [indexGapFocus, setIndexGapFocus] = useState(0);
 
-  // Similar to componentDidMount and componentDidUpdate:
-  useEffect(() => {
-    highlightFocusedGap()
-  });
+  useEffect(() => highlightFocusedGap());
 
   const GAP_BLANK = '___'
 
+  /**
+   * handleClickNextEx
+   * increments exerciseIndex, or cycles it back to the start
+   * clears any text content (answers) from last exercise
+   */
   const handleClickNextEx = () => {
     const maxExerciseIndex = props.exercises.length -1 
     repopulateGaps() // wipe any visible answers from last ex
@@ -40,6 +28,16 @@ const FillTheGapsPrep = (props) => {
       setIndexGapFocus(0)
       setExerciseIndex(0)
     }
+  }
+
+  /**
+   * handleClickNextGapBtn
+   * increments indexGapFocus, or cycles it back to the start 
+   */
+  const handleClickNextGapBtn = async () => {
+    const maxAnswerSetIndex = props.exercises[exerciseIndex].answerSet.length-1;
+    if (indexGapFocus < maxAnswerSetIndex) setIndexGapFocus(indexGapFocus + 1);
+    else setIndexGapFocus(0);
   }
 
   /**
@@ -64,28 +62,14 @@ const FillTheGapsPrep = (props) => {
       if (i === indexGapFocus) gaps[i].className += ' ftgp__sentence-gap--focus'
     }
   }
-  
+
   /**
-   * handleClickNextGapInEx
-   * increments indexGapFocus, or cycles it back to the start 
+   * handleClickGap
+   * sets the focus to the gap index of the spanGap that was clicked
+   * @param {*} evt object for click event
    */
-  const handleClickNextGapInEx = async () => {
-    const maxAnswerSetIndex = props.exercises[exerciseIndex].answerSet.length-1;
-    if (indexGapFocus < maxAnswerSetIndex) setIndexGapFocus(indexGapFocus + 1);
-    else setIndexGapFocus(0);
-  }
-
-  //TODO:
   const handleClickGap = (evt) => {
-    console.log(evt.target)
-    
-    //get the index of the gap
-    // just count it
-      // get posn in html coll
-      // count gaps before it
-
-    // give the gap class highlighted,
-    // remove class from other gaps
+    setIndexGapFocus(parseInt(evt.target.dataset.gapIndex))
   }
 
   const handleClickAnswer = (evt, a) => {
@@ -101,7 +85,7 @@ const FillTheGapsPrep = (props) => {
       // TODO: slide transition in the next answer set
       const lastGapIndex = props.exercises[exerciseIndex].answerSet.length-1
       if (indexGapFocus < lastGapIndex) {
-        handleClickNextGapInEx()
+        handleClickNextGapBtn()
       } else {
         // TODO: if still unfilled gaps, go to the first remaining
         // add focus
@@ -122,7 +106,7 @@ const FillTheGapsPrep = (props) => {
     }
     // if all sentence gaps are full, move focus to the arrow for the next exercise
   }
-
+  let track = -1;
   return (
     <div className='content-container'>
       {/* <p className='ftgp__title'>Fill The Gaps!</p> */}
@@ -130,23 +114,22 @@ const FillTheGapsPrep = (props) => {
       {
         props.exercises[exerciseIndex].sentence.map((w,i) => {
           let wordClasses = 'ftgp__sentence-word'
-
-          console.log(w)
           
           if (w === GAP_BLANK) wordClasses += ' ftgp__sentence-gap'
-          if (w === '-LRB-') w = ' ('
+          if (w === '-LRB-') w = '('
           if (w === '-RRB-') w = ')'
+
           
-          console.log(w)
+          if (w === GAP_BLANK) track++
 
           return (
           <span
             key={`key${w}${i}`}
             className={wordClasses}
-            onClick={(w === GAP_BLANK) ? handleClickGap : ()=>console.log('gap click')} //TODO: ask if ok on SO
+            data-gap-index = {(w === GAP_BLANK) ? track : -1}
+            onClick={(w === GAP_BLANK) ? handleClickGap : null}
           >
-            {/[.',()]/.test(w[0]) ? `${w}` : ` ${w}`}
-            {/* {`${w} `} */}
+            {/[.',)]/.test(w[0]) ? `${w}` : ` ${w}`}
           </span>
         )})
       }
@@ -165,14 +148,14 @@ const FillTheGapsPrep = (props) => {
         }
         <button
           className='ftgp__answer-btn'
-          onClick={handleClickNextGapInEx}
+          onClick={handleClickNextGapBtn}
         >&#10095;
         </button>
       </div>
 
       <button
         onClick={handleClickNextEx}
-      >Nxt exercise
+      > Next Exercise
       </button>
 
       <div>
@@ -184,7 +167,6 @@ const FillTheGapsPrep = (props) => {
   )
 }
 
-//each exercise has sentence and answerSet (arr of arrs for each prep in sentence)
 const mapStateToProps = (state) => {
   return {
     exercises: state.fillGapsPrepReducer.exercisesFGP
