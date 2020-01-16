@@ -1,8 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { history } from '../routers/AppRouter';
-// import { navigateToFGP } from '../actions/fillGapsPrep'
-
 
 class TextHighlightBar extends React.Component {
   constructor(props) {
@@ -211,9 +209,5 @@ const mapStateToProps = (state) => {
        fleschKincaidGradeLevel: state.inputTextData.fleschKincaidGradeLevel > 13 ? 'University' : state.inputTextData.fleschKincaidGradeLevel
    }
 };
-
-// const mapDispatchToProps = (dispatch) => ({
-//   navigateToFGP: () => dispatch(navigateToFGP())
-// });
 
 export default connect(mapStateToProps)(TextHighlightBar);

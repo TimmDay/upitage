@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import LoadingPage from './LoadingPage'
 import TextInput from './TextInput'
 import TextEnhanced from './TextEnhanced'
 import TextHighlightBar from './TextHighlightBar'
-import TextScrapeBar from './TextScrapeBar'
 import ButtonClearInputText from './ButtonClearInputText'
 
 
@@ -22,7 +22,7 @@ const WordsGoIn = (props) => {
         // className='button'
         onClick={() => setShowHighlightMenu(!showHighlightMenu)}
       >
-        show enhancement menu
+        {showHighlightMenu ? 'hide ' : 'show'} enhancement menu
       </button>
 
       <section>
@@ -35,7 +35,18 @@ const WordsGoIn = (props) => {
         }
         {/* <button onClick={()=>setShowHighlightMenu(!showHighlightMenu)}></button> */}
         
-        {showHighlightMenu && <TextHighlightBar />}
+        {showHighlightMenu &&
+          <CSSTransition
+            // key={'f'}
+            in={true}
+            appear={true}
+            timeout={3000}
+            classNames="slide-rl"
+          >
+            <TextHighlightBar />
+          </CSSTransition>
+        }
+        {/* {showHighlightMenu && <TextHighlightBar />} */}
 
       </section>
     </div>
