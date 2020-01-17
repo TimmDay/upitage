@@ -72,41 +72,21 @@ const FillTheGapsPrep = (props) => {
     setIndexGapFocus(parseInt(evt.target.dataset.gapIndex))
   }
 
-  const handleClickAnswer = (evt, a) => {
-    
-    if (a.correct) {
-      console.log(a.indexInSentence)
-      console.log(indexGapFocus)
-      console.log(props.exercises[exerciseIndex].answerSet.length-1)
-
-      // if all answers for exercise are correct -> redux update
-
-      // move focus to next gap (IFF there is another gap)
-      // TODO: slide transition in the next answer set
-      const lastGapIndex = props.exercises[exerciseIndex].answerSet.length-1
-      if (indexGapFocus < lastGapIndex) {
-        handleClickNextGapBtn()
-      } else {
-        // TODO: if still unfilled gaps, go to the first remaining
-        // add focus
-        // if not unfilled gaps, some sort of congrats animation and head to next exercise
-      }
-
+  const handleClickAnswer = (evt, answer) => {
+    if (answer.correct) {
       // render the correct word in the sentence gap
-      document.getElementsByClassName('ftgp__sentence-word')[a.indexInSentence].textContent = ` ${a.word} `
-      
-      // [] update redux tracker for correct answer
-      console.log('CLICKED ANSWER FOR GAP: ' + indexGapFocus)
-      // exIndex, ansIndex
+      document.getElementsByClassName('ftgp__sentence-word')[answer.indexInSentence].textContent = ` ${answer.word} `
+      // user is done here, move focus to next gap
+      handleClickNextGapBtn() 
+      // inform redux of correct answer (so answer track visualisation can update)
       props.updateCorrectAnswer(exerciseIndex, indexGapFocus)
-
-      // can we change it in the data instead?
     } else {
+      // style the incorrectly clicked btn
       evt.target.className = 'ftgp__answer-btn ftgp__btn-incorrect'
     }
-    // if all sentence gaps are full, move focus to the arrow for the next exercise
   }
-  let track = -1;
+  
+  let trackGapIndexOnEl = -1;
   return (
     <div className='content-container'>
       {/* <p className='ftgp__title'>Fill The Gaps!</p> */}
@@ -115,18 +95,18 @@ const FillTheGapsPrep = (props) => {
         props.exercises[exerciseIndex].sentence.map((w,i) => {
           let wordClasses = 'ftgp__sentence-word'
           
-          if (w === GAP_BLANK) wordClasses += ' ftgp__sentence-gap'
+          if (w === GAP_BLANK) {
+            wordClasses += ' ftgp__sentence-gap'
+            trackGapIndexOnEl++
+          }
           if (w === '-LRB-') w = '('
           if (w === '-RRB-') w = ')'
-
-          
-          if (w === GAP_BLANK) track++
 
           return (
           <span
             key={`key${w}${i}`}
             className={wordClasses}
-            data-gap-index = {(w === GAP_BLANK) ? track : -1}
+            data-gap-index = {(w === GAP_BLANK) ? trackGapIndexOnEl : -1}
             onClick={(w === GAP_BLANK) ? handleClickGap : null}
           >
             {/[.',)]/.test(w[0]) ? `${w}` : ` ${w}`}
@@ -137,13 +117,13 @@ const FillTheGapsPrep = (props) => {
 
       <div className='ftgp__answer-set'>
         {
-          props.exercises[exerciseIndex].answerSet[indexGapFocus].map((a,i) => (
+          props.exercises[exerciseIndex].answerSet[indexGapFocus].map((answer,i) => (
             <button
-              key={`key${a.word}${i}`}
+              key={`key${answer.word}${i}`}
               className='ftgp__answer-btn'
-              onClick={(evt) => handleClickAnswer(evt, a)}
+              onClick={(evt) => handleClickAnswer(evt, answer)}
               onMouseDown={(evt) => evt.preventDefault()}
-            >{`${a.word}`}</button>
+            >{`${answer.word}`}</button>
           ))
         }
         <button
@@ -168,9 +148,7 @@ const FillTheGapsPrep = (props) => {
 }
 
 const mapStateToProps = (state) => {
-  return {
-    exercises: state.fillGapsPrepReducer.exercisesFGP
-  }
+  return { exercises: state.fillGapsPrepReducer.exercisesFGP }
 };
 
 const mapDispatchToProps = (dispatch) => ({
