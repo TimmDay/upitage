@@ -1,5 +1,6 @@
 import { shuffleInPlace } from '../utils/arrayTools'
 import { enPrepositionsCommon, enPrepositionsTrickier } from '../utils/POS/en-common-prep'
+import { GAP_BLANK } from '../constants/constants';
 
 export const clearFGPData = () => ({ type: 'CLEAR_FTGPREP_DATA' })
 
@@ -12,10 +13,9 @@ export const startGenFGP = () => {
     
     // go through each sentence
     tagsBySent.forEach((sent, i) => {
-      // restriction: exercises only for shorter sentences
-      if (sent.length > 33) {// do nothing
+      if (sent.length > 33) { // restriction: exercises only for shorter sentences, < 33 words
       } else {
-        let sentenceArr = [] //will contains strings for words, with ___ for preps
+        let sentenceArr = [] //will contains strings for words, with GAP_BLANK for preps
         let answerSets = [] // will contain arr of [{ value: 'word', correct: bool }], in order of prep appearance in sentence
         let atLeastOnePrep = false
 
@@ -24,7 +24,7 @@ export const startGenFGP = () => {
           //IN -> preposition, TO -> 'to'
           if (tag[0] == 'I' || tag[0] == 'T') { //check first char of each tag for preposition
             atLeastOnePrep = true
-            sentenceArr.push('___')
+            sentenceArr.push(GAP_BLANK)
             answerSets.push([{ 
               word: wordsBySent[i][j], 
               correct: true,

@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import AnswerTrackerFTGP from './AnswerTrackerFTGP';
 import { updateCorrectAnswer } from '../actions/fillGapsPrep'
+import { GAP_BLANK } from '../constants/constants';
 
 
 const FillTheGapsPrep = (props) => {
@@ -10,8 +11,6 @@ const FillTheGapsPrep = (props) => {
   const [indexGapFocus, setIndexGapFocus] = useState(0);
 
   useEffect(() => highlightFocusedGap());
-
-  const GAP_BLANK = '___'
 
   /**
    * handleClickNextEx
