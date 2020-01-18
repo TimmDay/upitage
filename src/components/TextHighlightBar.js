@@ -1,12 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { history } from '../routers/AppRouter';
+import { messages } from '../resources/messagesUI';
+
 
 class TextHighlightBar extends React.Component {
-  constructor(props) {
-      super(props);
-      this.state = {}
-  }
+
 
   //clear local state if user submits new text (global state), so that highlighting works properly on one click
   componentDidUpdate(prevProps) {
@@ -139,12 +138,14 @@ class TextHighlightBar extends React.Component {
             className='btn-verb'
             disabled={!this.props.tags.length}
             onClick={this.handleHighlightVerbs}
+            title={this.props.language && messages[this.props.language].verb}
           >V
           </button>
 
           <button
             disabled={!this.props.tags.length}
             onClick={this.handleHighlightNouns}
+            title={this.props.language && messages[this.props.language].noun}
           >N
           </button>
         </div>
@@ -153,18 +154,21 @@ class TextHighlightBar extends React.Component {
           <button 
             disabled={!this.props.tags.length}
             onClick={this.handleHighlightAdjectives}
+            title={this.props.language && messages[this.props.language].adjective}
           >ADJ
           </button>
 
           <button 
             disabled={!this.props.tags.length}
             onClick={this.handleHighlightPrepositions}
+            title={this.props.language && messages[this.props.language].preposition}
           >P
           </button>
 
           <button 
             disabled={!this.props.tags.length}
             onClick={this.handleHighlightAdv}
+            title={this.props.language && messages[this.props.language].adverb}
           >ADV
           </button>
         </div>
@@ -173,27 +177,31 @@ class TextHighlightBar extends React.Component {
           <button 
             disabled={!this.props.tags.length}
             onClick={this.handleHighlightDet}
+            title={this.props.language && messages[this.props.language].determiner}
           >D
           </button>
 
           <button 
             disabled={!this.props.tags.length}
             onClick={this.handleHighlightW}
+            title={this.props.language && messages[this.props.language].wWord}
           >W
           </button>
 
         </div>
 
-        <div>
-          {this.props.fleschKincaidGradeLevel && <p>Reading Grade: {this.props.fleschKincaidGradeLevel}</p>}
-          {this.props.fleschReadingEase && <p>Reading Ease: {this.props.fleschReadingEase}</p>}
-        </div>
+        { this.props.languageLearn === 'EN' && (
+          <div>
+            {this.props.fleschKincaidGradeLevel && <p>Reading Grade: {this.props.fleschKincaidGradeLevel}</p>}
+            {this.props.fleschReadingEase && <p>Reading Ease: {this.props.fleschReadingEase}</p>}
+          </div>
+        )}
 
         <button 
           disabled={this.props.emptyFTGPrepEx}
           onClick={() => history.push('/fill-gaps-p')}
         >
-          Preposition Training
+          {this.props.language && messages[this.props.language].prepositionTraining}
         </button>
 
       </div>
@@ -202,12 +210,14 @@ class TextHighlightBar extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-   return {
-       emptyFTGPrepEx: state.fillGapsPrepReducer.exercisesFGP.length === 0,
-       tags: state.inputTextData.tags,
-       fleschReadingEase: state.inputTextData.fleschReadingEase,
-       fleschKincaidGradeLevel: state.inputTextData.fleschKincaidGradeLevel > 13 ? 'University' : state.inputTextData.fleschKincaidGradeLevel
-   }
+  return {
+    language: state.userOptions.langInstruction,
+    languageLearn: state.userOptions.langTarget,
+    emptyFTGPrepEx: state.fillGapsPrepReducer.exercisesFGP.length === 0,
+    tags: state.inputTextData.tags,
+    fleschReadingEase: state.inputTextData.fleschReadingEase,
+    fleschKincaidGradeLevel: state.inputTextData.fleschKincaidGradeLevel > 13 ? 'University' : state.inputTextData.fleschKincaidGradeLevel
+  }
 };
 
 export default connect(mapStateToProps)(TextHighlightBar);

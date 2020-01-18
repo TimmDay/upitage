@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { startLogout } from '../actions/auth';
 import { mapLangToImage } from '../utils/mapLang';
+import { messages } from '../resources/messagesUI';
+
 
 // logo
 // app name
@@ -36,7 +38,9 @@ export const Header = (props) => (
             src={mapLangToImage(props.target)} 
             // alt="display users language to learn"
           />
-          <button className="button button--link" onClick={props.startLogout}>Logout</button>
+          <button className="button button--link" onClick={props.startLogout}>
+            {props.spoken && messages[props.spoken].logout}
+          </button>
         </div>
 
       </div>

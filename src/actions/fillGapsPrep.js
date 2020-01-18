@@ -1,6 +1,6 @@
 import { shuffleInPlace } from '../utils/arrayTools'
 import { enPrepositionsCommon, enPrepositionsTrickier } from '../utils/POS/en-common-prep'
-import { GAP_BLANK } from '../constants/constants';
+import { GAP_BLANK } from '../resources/constants';
 
 export const clearFGPData = () => ({ type: 'CLEAR_FTGPREP_DATA' })
 

@@ -3,7 +3,9 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import AnswerTrackerFTGP from './AnswerTrackerFTGP';
 import { updateCorrectAnswer } from '../actions/fillGapsPrep'
-import { GAP_BLANK } from '../constants/constants';
+import { GAP_BLANK } from '../resources/constants';
+import { messages } from '../resources/messagesUI';
+
 
 
 const FillTheGapsPrep = (props) => {
@@ -134,11 +136,11 @@ const FillTheGapsPrep = (props) => {
 
       <button
         onClick={handleClickNextEx}
-      > Next Exercise
+      > {props.language && messages[props.language].nextExercise}
       </button>
 
       <div>
-        <Link to="/words-go-in">back</Link>
+        <Link to="/words-go-in">{props.language && messages[props.language].back}</Link>
       </div>
 
       < AnswerTrackerFTGP />
@@ -147,7 +149,10 @@ const FillTheGapsPrep = (props) => {
 }
 
 const mapStateToProps = (state) => {
-  return { exercises: state.fillGapsPrepReducer.exercisesFGP }
+  return { 
+    exercises: state.fillGapsPrepReducer.exercisesFGP,
+    language: state.userOptions.langInstruction
+  }
 };
 
 const mapDispatchToProps = (dispatch) => ({

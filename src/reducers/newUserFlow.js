@@ -1,6 +1,6 @@
 const defaultState = { 
-  langInstruction: '', 
-  langTarget: ''
+  langInstruction: 'DE', 
+  langTarget: 'EN'
 };
 export default (state = {}, action) => {
   switch (action.type) {
@@ -15,6 +15,6 @@ export default (state = {}, action) => {
         langTarget: action.lang
       };
     default:
-      return state;
+      return defaultState;
   }
 };
