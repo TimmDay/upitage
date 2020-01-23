@@ -8,7 +8,7 @@ const text = "Die Katze lief um den Baum herum."
 const doTag = (text) => {
   (async () => {
     const POS = require("../../node_modules/stanford-postagger")
-    const pos = new POS({model: 'english'})
+    const pos = new POS({model: 'german'})
     await pos.start()
     await pos.tag(text).then((data) => {
         console.log(data)
