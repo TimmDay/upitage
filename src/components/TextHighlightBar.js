@@ -1,212 +1,179 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { history } from '../routers/AppRouter';
 import { messages } from '../resources/messagesUI';
 
 
-class TextHighlightBar extends React.Component {
+const TextHighlightBar = (props) => {
 
+  const [isHighlightVerb, setIsHighlightVerb] = useState(false);
+  const [isHighlightNoun, setIsHighlightNoun] = useState(false);
+  const [isHighlightAdj, setIsHighlightAdj] = useState(false);
+  const [isHighlightPrep, setIsHighlightPrep] = useState(false);
+  const [isHighlightAdv, setIsHighlightAdv] = useState(false);
+  const [isHighlightDet, setIsHighlightDet] = useState(false);
+  const [isHighlightW, setIsHighlightW] = useState(false);
 
-  //clear local state if user submits new text (global state), so that highlighting works properly on one click
-  componentDidUpdate(prevProps) {
-    if (this.props.tags !== prevProps.tags) {
-      this.setState(() => ({
-        isHighlightVerb: false,
-        isHighlightNoun: false,
-        isHighlightAdj: false,
-        isHighlightPrep: false,
-        isHighlightAdv: false,
-        isHighlightDet: false,
-        isHighlightW: false
-      }))
-    }
-  }
-
-  handleHighlightVerbs = () => {
+  const handleHighlightVerbs = () => {
     let applyClass = 'text-highlight-verb'
-
-    if (this.state.isHighlightVerb === true) { applyClass = '' }
-
+    if (isHighlightVerb) { applyClass = '' }
     let verbIndices = [] //store indices
-    this.props.tags.forEach((tag, i) => {
+    props.tags.forEach((tag, i) => {
       if (tag[0] == 'V') verbIndices.push(i)
     })
     const wordsArr = document.getElementsByClassName('wgi__raw-text');
     verbIndices.forEach(match => wordsArr[match].className = `wgi__raw-text ${applyClass}`)
- 
-    this.setState((prevState) => ({ isHighlightVerb: !prevState.isHighlightVerb }))
+    setIsHighlightVerb(!isHighlightVerb)
   }
 
-  handleHighlightNouns = () => {
+  const handleHighlightNouns = () => {
     let applyClass = 'text-highlight-noun'
-
-    if (this.state.isHighlightNoun === true) { applyClass = '' }
-    
+    if (isHighlightNoun) { applyClass = '' }
     let nounIndices = [] //store indices
-    this.props.tags.forEach((tag, i) => {
+    props.tags.forEach((tag, i) => {
       if (tag[0] == 'N') nounIndices.push(i)
     })
     const wordsArr = document.getElementsByClassName('wgi__raw-text');
     nounIndices.forEach(match => wordsArr[match].className = `wgi__raw-text ${applyClass}`)
- 
-    this.setState((prevState) => ({ isHighlightNoun: !prevState.isHighlightNoun }))
+    setIsHighlightNoun(!isHighlightNoun)
   }
 
-  handleHighlightAdjectives = () => {
-    // let applyStyle = 'background:orange;'
+  const handleHighlightAdjectives = () => {
     let applyClass = 'text-highlight-adjective'
-
-    if (this.state.isHighlightAdj === true) { applyClass = '' }
-    
+    if (isHighlightAdj) { applyClass = '' }
     let adjIndices = [] //store indices
-    this.props.tags.forEach((tag, i) => {
+    props.tags.forEach((tag, i) => {
       if (tag[0] == 'J') adjIndices.push(i)
     })
     const wordsArr = document.getElementsByClassName('wgi__raw-text');
     adjIndices.forEach(match => wordsArr[match].className = `wgi__raw-text ${applyClass}`)
- 
-    this.setState((prevState) => ({ isHighlightAdj: !prevState.isHighlightAdj }))
+    setIsHighlightAdj(!isHighlightAdj)
   }
 
-  handleHighlightPrepositions = () => {
+  const handleHighlightPrepositions = () => {
     let applyClass = 'text-highlight-preposition'
-
-    if (this.state.isHighlightPrep === true) { applyClass = '' }
-    
+    if (isHighlightPrep) { applyClass = '' }
     let prepIndices = [] //store indices
-    this.props.tags.forEach((tag, i) => {
+    props.tags.forEach((tag, i) => {
       if (tag[0] == 'I' || tag[0] == 'T') prepIndices.push(i)
     })
     const wordsArr = document.getElementsByClassName('wgi__raw-text');
     prepIndices.forEach(match => wordsArr[match].className = `wgi__raw-text ${applyClass}`)
- 
-    this.setState((prevState) => ({ isHighlightPrep: !prevState.isHighlightPrep }))
+    setIsHighlightPrep(!isHighlightPrep)
   }
 
-  handleHighlightAdv = () => {
+  const handleHighlightAdv = () => {
     let applyClass = 'text-highlight-adv'
-
-    if (this.state.isHighlightAdv === true) { applyClass = '' }
-
+    if (isHighlightAdv) { applyClass = '' }
     let advIndices = [] //store indices
-    this.props.tags.forEach((tag, i) => {
+    props.tags.forEach((tag, i) => {
       if (tag[0] == 'R') advIndices.push(i)
     })
     const wordsArr = document.getElementsByClassName('wgi__raw-text');
     advIndices.forEach(match => wordsArr[match].className = `wgi__raw-text ${applyClass}`)
- 
-    this.setState((prevState) => ({ isHighlightAdv: !prevState.isHighlightAdv }))
-  }
+    setIsHighlightAdv(!isHighlightAdv)
+   }
 
-  handleHighlightDet = () => {
+  const handleHighlightDet = () => {
     let applyClass = 'text-highlight-det'
-
-    if (this.state.isHighlightDet === true) { applyClass = '' }
-
+    if (isHighlightDet) { applyClass = '' }
     let detIndices = [] //store indices
-    this.props.tags.forEach((tag, i) => {
+    props.tags.forEach((tag, i) => {
       if (tag[0] == 'D') detIndices.push(i)
     })
     const wordsArr = document.getElementsByClassName('wgi__raw-text');
     detIndices.forEach(match => wordsArr[match].className = `wgi__raw-text ${applyClass}`)
- 
-    this.setState((prevState) => ({ isHighlightDet: !prevState.isHighlightDet }))
-  }
+    setIsHighlightDet(!isHighlightDet)
+   }
 
-  handleHighlightW = () => {
+  const handleHighlightW = () => {
     let applyClass = 'text-highlight-w'
-
-    if (this.state.isHighlightW === true) { applyClass = '' }
-
+    if (isHighlightW) { applyClass = '' }
     let wIndices = [] //store indices
-    this.props.tags.forEach((tag, i) => {
+    props.tags.forEach((tag, i) => {
       if (tag[0] == 'W') wIndices.push(i)
     })
     const wordsArr = document.getElementsByClassName('wgi__raw-text');
     wIndices.forEach(match => wordsArr[match].className = `wgi__raw-text ${applyClass}`)
- 
-    this.setState((prevState) => ({ isHighlightW: !prevState.isHighlightW }))
+    setIsHighlightW(!isHighlightW)
   }
 
 
-  render () {
-    return (
-      <div className="text-highlight-bar">
+  return (
+    <div className="text-highlight-bar">
 
-        <div className="text-highlight__row">
-          <button 
-            className='btn-verb'
-            disabled={!this.props.tags.length}
-            onClick={this.handleHighlightVerbs}
-            title={this.props.language && messages[this.props.language].verb}
-          >V
-          </button>
+      <div className="text-highlight__row">
+        <button 
+          className='btn-verb'
+          disabled={!props.tags.length}
+          onClick={handleHighlightVerbs}
+          title={props.language && messages[props.language].verb}
+        >V
+        </button>
 
-          <button
-            disabled={!this.props.tags.length}
-            onClick={this.handleHighlightNouns}
-            title={this.props.language && messages[this.props.language].noun}
-          >N
-          </button>
-        </div>
+        <button
+          disabled={!props.tags.length}
+          onClick={handleHighlightNouns}
+          title={props.language && messages[props.language].noun}
+        >N
+        </button>
+      </div>
 
-        <div className="text-highlight__row">
-          <button 
-            disabled={!this.props.tags.length}
-            onClick={this.handleHighlightAdjectives}
-            title={this.props.language && messages[this.props.language].adjective}
-          >ADJ
-          </button>
-
-          <button 
-            disabled={!this.props.tags.length}
-            onClick={this.handleHighlightPrepositions}
-            title={this.props.language && messages[this.props.language].preposition}
-          >P
-          </button>
-
-          <button 
-            disabled={!this.props.tags.length}
-            onClick={this.handleHighlightAdv}
-            title={this.props.language && messages[this.props.language].adverb}
-          >ADV
-          </button>
-        </div>
-
-        <div className="text-highlight__row">
-          <button 
-            disabled={!this.props.tags.length}
-            onClick={this.handleHighlightDet}
-            title={this.props.language && messages[this.props.language].determiner}
-          >D
-          </button>
-
-          <button 
-            disabled={!this.props.tags.length}
-            onClick={this.handleHighlightW}
-            title={this.props.language && messages[this.props.language].wWord}
-          >W
-          </button>
-
-        </div>
-
-        { this.props.languageLearn === 'EN' && (
-          <div>
-            {this.props.fleschKincaidGradeLevel && <p>Reading Grade: {this.props.fleschKincaidGradeLevel}</p>}
-            {this.props.fleschReadingEase && <p>Reading Ease: {this.props.fleschReadingEase}</p>}
-          </div>
-        )}
+      <div className="text-highlight__row">
+        <button 
+          disabled={!props.tags.length}
+          onClick={handleHighlightAdjectives}
+          title={props.language && messages[props.language].adjective}
+        >ADJ
+        </button>
 
         <button 
-          disabled={this.props.emptyFTGPrepEx}
-          onClick={() => history.push('/fill-gaps-p')}
-        >
-          {this.props.language && messages[this.props.language].prepositionTraining}
+          disabled={!props.tags.length}
+          onClick={handleHighlightPrepositions}
+          title={props.language && messages[props.language].preposition}
+        >P
+        </button>
+
+        <button 
+          disabled={!props.tags.length}
+          onClick={handleHighlightAdv}
+          title={props.language && messages[props.language].adverb}
+        >ADV
+        </button>
+      </div>
+
+      <div className="text-highlight__row">
+        <button 
+          disabled={!props.tags.length}
+          onClick={handleHighlightDet}
+          title={props.language && messages[props.language].determiner}
+        >D
+        </button>
+
+        <button 
+          disabled={!props.tags.length}
+          onClick={handleHighlightW}
+          title={props.language && messages[props.language].wWord}
+        >W
         </button>
 
       </div>
-    )
-  }
+
+      { props.languageLearn === 'EN' && (
+        <div>
+          {props.fleschKincaidGradeLevel && <p>Reading Grade: {props.fleschKincaidGradeLevel}</p>}
+          {props.fleschReadingEase && <p>Reading Ease: {props.fleschReadingEase}</p>}
+        </div>
+      )}
+
+      <button 
+        disabled={props.emptyFTGPrepEx}
+        onClick={() => history.push('/fill-gaps-p')}
+      >
+        {props.language && messages[props.language].prepositionTraining}
+      </button>
+    </div>
+  )
 }
 
 const mapStateToProps = (state) => {
