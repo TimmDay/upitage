@@ -86,3 +86,7 @@ https://www.countryflags.com/en/vector-overview/
 
 #### systran english dictionary lookup
 https://www.programmableweb.com/api/systran-dictionary
+
+
+
+https://www.npmjs.com/package/redux-persist

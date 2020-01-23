@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react'
+ 
 import AppRouter, { history } from './routers/AppRouter';
 import './fontawesome';
 import configureStore from './store/configureStore';
@@ -10,10 +12,17 @@ import './styles/styles.scss';
 import { firebase } from './googleAPIs/firebase';
 import LoadingPage from './components/LoadingPage';
 
-const store = configureStore();
+const store = configureStore().store;
+const persistor = configureStore().persistor
+
+console.log(store)
+console.log(persistor)
+
 const jsx = (
   <Provider store={store}>
-    <AppRouter />
+    <PersistGate loading={null} persistor={persistor}>
+      <AppRouter /> 
+    </PersistGate>
   </Provider>
 );
 
