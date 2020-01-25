@@ -110,7 +110,8 @@ const FillTheGapsPrep = (props) => {
             data-gap-index = {(w === GAP_BLANK) ? trackGapIndexOnEl : -1}
             onClick={(w === GAP_BLANK) ? handleClickGap : null}
           >
-            {/[.',)]/.test(w[0]) ? `${w}` : ` ${w}`}
+            {(w === GAP_BLANK) ? ` ${w}` : /[.',)]/.test(w[0]) ? `${w}` : ` ${w}` }
+            
           </span>
         )})
       }

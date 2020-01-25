@@ -5,7 +5,6 @@ import { messages } from '../resources/messagesUI';
 
 
 const TextHighlightBar = (props) => {
-
   const [isHighlightVerb, setIsHighlightVerb] = useState(false);
   const [isHighlightNoun, setIsHighlightNoun] = useState(false);
   const [isHighlightAdj, setIsHighlightAdj] = useState(false);

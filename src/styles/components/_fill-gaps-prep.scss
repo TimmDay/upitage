@@ -12,9 +12,20 @@
   color: $color-prep;
   cursor: pointer;
   font-size: $l-size * 1.3;
+  white-space: pre-wrap;
 }
 .ftgp__sentence-gap--focus {
-  background-color: red;
+  // -webkit-transition: all 0.30s ease-in-out;
+  // -moz-transition: all 0.30s ease-in-out;
+  // -ms-transition: all 0.30s ease-in-out;
+  // -o-transition: all 0.30s ease-in-out;
+  transition: all 0.30s ease-in-out;
+  padding: 3px 0px 3px 3px;
+  margin: 5px 1px 3px 0px;
+  // border: 1px solid #DDDDDD;
+  border-radius: 50%;
+  background: yellow;
+  opacity: 50%;
 }
 .ftgp__answer-set {
   display: flex;
