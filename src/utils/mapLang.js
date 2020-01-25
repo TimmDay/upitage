@@ -10,29 +10,3 @@ export const mapLangToImage = (langCode) => {
       return ''
   }
 }
-
-export const mapLangToISpeak = (langCode) => {
-  switch (langCode) {
-    case 'EN':
-      return 'I speak...';
-    case 'DE':
-      return 'Ich spreche...';
-    case 'ES':
-      return 'Hablo...';
-    default:
-      return 'I speak...'
-  }
-}
-
-export const mapLangToILearn = (langCode) => {
-  switch (langCode) {
-    case 'EN':
-      return 'I want to learn...';
-    case 'DE':
-      return 'Ich will das lernen...';
-    case 'ES':
-      return 'Quiero aprender...';
-    default:
-      return 'I want to learn...'
-  }
-}

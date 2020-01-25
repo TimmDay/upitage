@@ -48,7 +48,7 @@ export const messages = {
     nextExercise: 'próximo ejercicio',
     pasteText: 'Pegue el texto aquí',
     iSpeak: 'Hablo...',
-    iWantToLearn: 'quiero aprender',
+    iWantToLearn: 'quiero aprender...',
     adjective: 'adjetivo',
     adverb: 'adverbio',
     determiner: 'determinante',
