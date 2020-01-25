@@ -37,5 +37,25 @@ export const messages = {
     verb: 'Verb',
     wWord: 'W-Wort',
     prepositionTraining: 'Präpositionstraining'
+  },
+
+  ES: {
+    clearText: 'texto inequívoco',
+    login: 'Ingresar a',
+    logout: 'Cierre de sesión',
+    next: 'siguiente',
+    back: 'volverse atrás',
+    nextExercise: 'próximo ejercicio',
+    pasteText: 'Pegue el texto aquí',
+    iSpeak: 'Hablo...',
+    iWantToLearn: 'quiero aprender',
+    adjective: 'adjetivo',
+    adverb: 'adverbio',
+    determiner: 'determinante',
+    noun: 'Sustantivo',
+    preposition: 'preposición',
+    verb: 'Verbo',
+    wWord: 'W-palabra',
+    prepositionTraining: 'entrenamiento de preposición'
   }
 }
