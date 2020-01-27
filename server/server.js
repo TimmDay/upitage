@@ -1,6 +1,8 @@
 // const path = require('path');
 const express = require('express');
 const posTagEn = require('./../src/utils/POS/stanford-pos-english');
+const embeddings = require('./../src/utils/embeddings/embeddings');
+
 // const translateEnWord = require('./../src/utils/googleTranslate/translate');
 
 const app = express();
@@ -30,9 +32,7 @@ app.use((req,res,next) => {
 // * gives access to any client. could also restrict it, ie localhost:8080...
 // console.log('here is PORT variable: ', process.env.PORT);
 // console.log('here is PORT variable: ', process.env);
-
 // app.use(express.static(publicPath));
-
 
 app.post('/postag-text', async (req,res) => {
   const text = req.body.text // TODO: text is a required property on body
@@ -46,23 +46,18 @@ app.post('/postag-text', async (req,res) => {
   } catch (err) { res.status(500).send(err)}
 })
 
-
-// // TODO: mvp. get one word accross
-// app.get('/postag-word', (req,res) => {
-//   console.log('in server') //TODO:
-
-//   if (!req.query.word) {
-//     return res.send({
-//       error: 'you must provide the word to postag'
-//     })
-//   }
-//   posTagEnWord(req.query.word)
-//   .then(data => {
-//     console.log(data)
-//     res.send({ tag: data })
-//   });
-// })
-
+app.post('/n-most-similar', async (req, res) => {
+  const target = req.body.target; // TODO: target str is a required property on body
+  let n = req.body.n; // TODO: int how many most similar
+  if (!target) return res.status(400).send()
+  if (!n) n = 3
+  try {
+    const results = await embeddings.nMostSimilarPreps(target,n);
+    console.log(`successfully found ${n} similar vectors for ${target}`)
+    console.log(results)
+    res.send(results)
+  } catch (err) { res.status(500).send(err)}
+})
 
 app.get('/translated-text', (req,res) => {
   console.log('QUERY WORD: ', req.query.word);
@@ -74,7 +69,6 @@ app.get('/translated-text', (req,res) => {
   translateEnWord(req.query.word)
   .then(data => {
     console.log(data);
-    
     // res.send({
     //   tag: data
     // })

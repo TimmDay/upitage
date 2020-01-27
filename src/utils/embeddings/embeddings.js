@@ -45,29 +45,31 @@ const cosineSimilarity = (arrVecA, arrVecB) => {
   return result;
 }
 
-
 /**
  * Return the n words that are the most similar to the given embedding.
  * @param target The target word. must be a preposition on the list
  * @param n length of list of most similar results.
  * @param map keys being the word and arrVecs the values
+ * returns array of words, ordered from most to least similar
  * Uses the precontructed of preposition vectors 'glove_prep_vectors.txt'
  */
-const nMostSimilar = (target, n, map) => {
+const nMostSimilarPreps = (target, n) => {
   // target must be string
   // map must be a map
   // target must be on list
+  
   target = target.toLowerCase()
+  const prepMap = buildVectorMap(`${__dirname}/glove_prep_vectors.txt`)
 
   // go through each item on map, compare similarity with target, store the n closest
-  const targetVector = map.get(target)
-  const keys = map.keys()
+  const targetVector = prepMap.get(target)
+  const keys = prepMap.keys()
   const compare = (a,b) => (a[1] > b[1]) ? -1 : ((a[1] < b[1]) ? 1 : 0)
 
   let nArr = []
   for (k of keys) {
     if (k === target) continue
-    const compareVector = map.get(k)
+    const compareVector = prepMap.get(k)
     const similarity = cosineSimilarity(targetVector, compareVector)
 
     if (nArr.length < n) {
@@ -81,8 +83,17 @@ const nMostSimilar = (target, n, map) => {
       }
     }
   }
-  console.log(nArr)
-  return nArr.map((el) => el[0]) //return just the strings
+
+  // TODO: Trial report
+  console.log(target)
+  nArr.forEach(el => {
+    console.log(`${el[0]}, ${el[1]}`)
+  })
+  
+
+  const arrStr = nArr.map((el) => el[0])
+  console.log(arrStr)
+  return arrStr //return just the strings
 }
 
 const nLeastSimilar = (target, n, map) => {
@@ -113,9 +124,9 @@ const nLeastSimilar = (target, n, map) => {
       }
     }
   }
-  console.log(nArr)
   return nArr.map((el) => el[0]) //return just the strings
 }
+
 // TESTS
 // const arrA = [1,2,3]
 // const arrB = [1,2,3]
@@ -126,6 +137,12 @@ const nLeastSimilar = (target, n, map) => {
 // console.log(cosineSimilarity(a,b)) //~0.82
 
 // const prepMap = buildVectorMap('./glove.6B.300d.txt')
-const prepMap = buildVectorMap('./glove_prep_vectors.txt')
-console.log(nMostSimilar('of', 25, prepMap))
-console.log(nLeastSimilar('of', 25, prepMap))
+// const prepMap = buildVectorMap(`${__dirname}/glove_prep_vectors.txt`)
+// console.log(nMostSimilar('of', 25, prepMap))
+// console.log(nLeastSimilar('of', 25, prepMap))
+
+module.exports = {
+  buildVectorMap,
+  nMostSimilarPreps,
+  nLeastSimilar
+}

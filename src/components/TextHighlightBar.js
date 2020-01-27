@@ -13,6 +13,10 @@ const TextHighlightBar = (props) => {
   const [isHighlightDet, setIsHighlightDet] = useState(false);
   const [isHighlightW, setIsHighlightW] = useState(false);
 
+  useEffect(() => {
+    console.log('PREP EXS UPDATES');
+  }, [props.emptyFTGPrepEx])
+
   const handleHighlightVerbs = () => {
     let applyClass = 'text-highlight-verb'
     if (isHighlightVerb) { applyClass = '' }

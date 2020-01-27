@@ -88,6 +88,25 @@ const FillTheGapsPrep = (props) => {
   }
   
   let trackGapIndexOnEl = -1;
+  
+  //TODO: data gather -> print sentence with gaps to the console
+  let sentence = ''
+  props.exercises[exerciseIndex].sentence.forEach((word) => {
+    sentence += ` ${word}`
+  })
+  console.log(sentence)
+
+  props.exercises[exerciseIndex].answerSet.forEach((set, i) => {
+    let choices = ''
+    let answers = ''
+    set.forEach(item => {
+      choices += `${item.word}, `
+      answers += `${item.correct}, `
+    })
+    console.log(choices)
+    console.log(answers)
+  })
+  
   return (
     <div className='content-container'>
       {/* <p className='ftgp__title'>Fill The Gaps!</p> */}

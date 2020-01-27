@@ -77,9 +77,12 @@ export const startPosProcessing = (src ={}) => {
       wordsBySent: arrWordsBySent,
       tagsBySent: arrTagsBySent
     }
+
     await dispatch(storeInputText(obj))
     await dispatch(toggleIsLoading(false)) //needs its own dispatch to trigger render to remove loader
-    await dispatch(startGenFGP()) //gen data for FTG Prep ex. so ready before user clicks btn
+    
+    // GENERATE DATA FOR FTG PREPOSITIONS EXERCISE - so ready before user clicks btn
+    await dispatch(startGenFGP())
     
     return obj
   }
