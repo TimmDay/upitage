@@ -1,6 +1,8 @@
+import async from 'async'
 import { shuffleInPlace } from '../utils/arrayTools'
 import { enPrepositionsCommon, enPrepositionsTrickier } from '../utils/POS/en-common-prep';
 import { GAP_BLANK } from '../resources/constants';
+
 
 export const clearFGPData = () => ({ type: 'CLEAR_FTGPREP_DATA' })
 
@@ -40,63 +42,53 @@ export const startGenFGP = () => {
       if (!atLeastOnePrep) return; //abandon this sentence, go to next
 
       // add confounding answers to each answer set (currently contains only correct)
-      await answerSets.forEach(async (answerSet) => {
+
+      async.each(answerSets, async (answerSet) => {        
         const correct = answerSet[0].word
 
-        let commonList = enPrepositionsCommon; // an array
-        let trickierList = enPrepositionsTrickier
 
         // TODO: trials. Use wordEmbeddings or wordFreq
         const useWordEmbeddings = false;
 
-        // if (useWordEmbeddings) {
-        //   const res = await fetch('http://localhost:3000/n-most-similar', {
-        //     method: 'POST',
-        //     headers: { 'Content-Type': 'application/json' },
-        //     redirect: 'follow',
-        //     body: JSON.stringify({target: correct, n: 9})
-        //   })
-        //   commonList = await res.json(); // an array, replacing word freq
+        if (useWordEmbeddings) {
+          const res = await fetch('http://localhost:3000/n-most-similar', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            redirect: 'follow',
+            body: JSON.stringify({target: correct, n: 12})
+          })
+          let similarList = await res.json();
 
-        //   console.log(commonList)
-        //   console.log(typeof commonList)
-          
+          const word1 = similarList.splice(Math.floor(Math.random() * similarList.length),1);
+          const word2 = similarList.splice(Math.floor(Math.random() * similarList.length),1);
+          const word3 = similarList.splice(Math.floor(Math.random() * similarList.length),1);
 
-        //   // avoid dbl answers, remove correct answer from the relevant confounding list
-        //   if (commonList.includes(correct)) commonList.splice(commonList.indexOf(correct),1)
-        //   if (trickierList.includes(correct)) trickierList.splice(trickierList.indexOf(correct),1)
-          
-        //   const word1 = commonList[Math.floor(Math.random() * commonList.length)]
-        //   const word2 = commonList[Math.floor(Math.random() * commonList.length)]
-        //   const word3 = trickierList[Math.floor(Math.random() * trickierList.length)]
+          answerSet.push({ word: word1, correct: false })
+          answerSet.push({ word: word2, correct: false })
+          answerSet.push({ word: word3, correct: false })
 
-        //   console.log(word1)
-        //   console.log(word2)
-          
-        //   answerSet.push({ word: word1, correct: false })
-        //   answerSet.push({ word: word2, correct: false })
-        //   answerSet.push({ word: word3, correct: false })
-
-        // } else {
+        } else {
+          let commonList = enPrepositionsCommon; // an array
+          let trickierList = enPrepositionsTrickier
 
           // avoid dbl answers, remove correct answer from the relevant confounding list
           if (commonList.includes(correct)) commonList.splice(commonList.indexOf(correct),1)
           if (trickierList.includes(correct)) trickierList.splice(trickierList.indexOf(correct),1)
           
-          const word1 = commonList[Math.floor(Math.random() * commonList.length)]
-          const word2 = commonList[Math.floor(Math.random() * commonList.length)]
-          const word3 = trickierList[Math.floor(Math.random() * trickierList.length)]
+          const word1 = commonList.splice(Math.floor(Math.random() * commonList.length),1)
+          const word2 = commonList.splice(Math.floor(Math.random() * commonList.length),1)
+          const word3 = trickierList.splice(Math.floor(Math.random() * trickierList.length),1)
 
           answerSet.push({ word: word1, correct: false })
           answerSet.push({ word: word2, correct: false })
           answerSet.push({ word: word3, correct: false }) 
-        // }
+        }
 
       // shuffle the answer set
         await shuffleInPlace(answerSet) 
       }) //end foreach answersets
 
-      // submit to exercise arr
+      // to redux
       exercisesFGP.push({ 
         sentence: sentenceArr, 
         answerSet: answerSets,
