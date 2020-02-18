@@ -17,10 +17,10 @@ const WordsGoIn = (props) => {
       {props.isLoading && <LoadingPage />} 
       {/* < TextScrapeBar /> */}
       
-      {props.arrWords.length !== 0 && <ButtonClearInputText className='button'/>}
+      {props.arrWords.length !== 0 && <ButtonClearInputText className='button--quiet'/>}
 
       <button 
-        className='button'
+        className='button--quiet'
         onClick={() => setShowHighlightMenu(!showHighlightMenu)}
       >
         {showHighlightMenu 

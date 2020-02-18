@@ -154,16 +154,21 @@ const FillTheGapsPrep = (props) => {
         </button>
       </div>
 
-      <button
-        onClick={handleClickNextEx}
-      > {props.language && messages[props.language].nextExercise}
-      </button>
-
-      <div>
-        <Link to="/words-go-in">{props.language && messages[props.language].back}</Link>
-      </div>
-
       < AnswerTrackerFTGP />
+
+      <div className='ftgp__container'>
+        <div>
+          <Link className='button--quiet' to="/words-go-in">{props.language && messages[props.language].back}</Link>
+        </div>
+        <button
+          className='button--quiet'
+          onClick={handleClickNextEx}
+        > {props.language && messages[props.language].nextExercise}
+        </button>
+      </div>
+      
+
+      
     </div>
   )
 }

@@ -1,5 +1,8 @@
-.ftgp__title {
-
+.ftgp__container {
+  display: flex;
+  justify-content: space-between;
+  // margin-top: 3em;
+  margin-bottom: 2em;
 }
 
 .ftgp__sentence {
