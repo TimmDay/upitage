@@ -22,7 +22,7 @@ export const Header = (props) => (
         <Link className="header__title" to="/main">
           <h1>
             {/* <FontAwesomeIcon icon="tv" /> */}
-            Langevant
+            UPITAGE
             {/* <FontAwesomeIcon icon="newspaper" /> */}
           </h1>
         </Link>

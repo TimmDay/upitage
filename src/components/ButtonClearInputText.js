@@ -5,7 +5,7 @@ import { messages } from '../resources/messagesUI'
 
 const ButtonClearInputText = (props) => (
   <button
-    className='btn-clearInputText'
+    className={`btn-clearInputText ${props.className}`}
     onClick={props.startClearInputText}
   >
     {props.language ? messages[props.language].clearText : ''}

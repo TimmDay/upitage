@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { startPosProcessing, startFleschKincaid } from '../actions/inputText'
-
+import { messages } from '../resources/messagesUI';
 
 class TextInput extends React.Component {
   constructor(props) {
@@ -36,7 +36,7 @@ class TextInput extends React.Component {
             className='text-input__textarea'
             value={this.state.textBody}
             onChange={this.handleChangeTextArea}
-            placeholder='paste own text'
+            placeholder='Text hier einfügen'
             onKeyDown={this.handleOnEnterPress}
           />
         </form>
@@ -46,16 +46,22 @@ class TextInput extends React.Component {
           disabled={!this.state.textBody}
           onClick={this.handleSubmitSourceForPOS}  
         >
-          submit text
+          {this.props.spoken && messages[this.props.spoken].submitText}
         </button>
       </div>
     )
   }
 }
 
+const mapStateToProps = (state) => {
+  return {
+    spoken: state.userOptions.langInstruction || '',
+    target: state.userOptions.langTarget || ''
+  }
+};
 const mapDispatchToProps = (dispatch) => ({
   startPosProcessing: (src) => dispatch(startPosProcessing(src)),
   startFleschKincaid: (str) => dispatch(startFleschKincaid(str))
 });
 
-export default connect(undefined, mapDispatchToProps)(TextInput);
+export default connect(mapStateToProps, mapDispatchToProps)(TextInput);

@@ -72,12 +72,12 @@ export const startGenFGP = () => {
           let trickierList = enPrepositionsTrickier
 
           // avoid dbl answers, remove correct answer from the relevant confounding list
-          if (commonList.includes(correct)) commonList.splice(commonList.indexOf(correct),1)
-          if (trickierList.includes(correct)) trickierList.splice(trickierList.indexOf(correct),1)
+          // if (commonList.includes(correct)) commonList.splice(commonList.indexOf(correct),1)
+          // if (trickierList.includes(correct)) trickierList.splice(trickierList.indexOf(correct),1)
           
-          const word1 = commonList.splice(Math.floor(Math.random() * commonList.length),1)
-          const word2 = commonList.splice(Math.floor(Math.random() * commonList.length),1)
-          const word3 = trickierList.splice(Math.floor(Math.random() * trickierList.length),1)
+          const word1 = commonList[Math.floor(Math.random() * commonList.length)]
+          const word2 = commonList[Math.floor(Math.random() * commonList.length)]
+          const word3 = trickierList[Math.floor(Math.random() * trickierList.length)]
 
           answerSet.push({ word: word1, correct: false })
           answerSet.push({ word: word2, correct: false })

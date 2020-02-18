@@ -163,13 +163,14 @@ const TextHighlightBar = (props) => {
       </div>
 
       { props.languageLearn === 'EN' && (
-        <div>
-          {props.fleschKincaidGradeLevel && <p>Reading Grade: {props.fleschKincaidGradeLevel}</p>}
-          {props.fleschReadingEase && <p>Reading Ease: {props.fleschReadingEase}</p>}
+        <div className='text-highlight-container'>
+          {props.fleschKincaidGradeLevel && <p className='text-highlight-info'>Reading Grade: {props.fleschKincaidGradeLevel}</p>}
+          {props.fleschReadingEase && <p className='text-highlight-info'>Reading Ease: {props.fleschReadingEase}</p>}
         </div>
       )}
 
       <button 
+        className='button'
         disabled={props.emptyFTGPrepEx}
         onClick={() => history.push('/fill-gaps-p')}
       >

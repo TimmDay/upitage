@@ -55,7 +55,7 @@ const NewUserFlow = (props) => (
     </div>
 
     <Link className="" to={`/words-go-in`}>
-      <button className='new-user-flow__btn'>next</button>
+      <button className='new-user-flow__btn'>{props.language && messages[props.language].next}</button>
     </Link>
   </div>
 );

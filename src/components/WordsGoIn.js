@@ -6,6 +6,7 @@ import TextInput from './TextInput'
 import TextEnhanced from './TextEnhanced'
 import TextHighlightBar from './TextHighlightBar'
 import ButtonClearInputText from './ButtonClearInputText'
+import { messages } from '../resources/messagesUI';
 
 
 const WordsGoIn = (props) => {
@@ -16,13 +17,16 @@ const WordsGoIn = (props) => {
       {props.isLoading && <LoadingPage />} 
       {/* < TextScrapeBar /> */}
       
-      {props.arrWords.length !== 0 && <ButtonClearInputText />}
+      {props.arrWords.length !== 0 && <ButtonClearInputText className='button'/>}
 
       <button 
-        // className='button'
+        className='button'
         onClick={() => setShowHighlightMenu(!showHighlightMenu)}
       >
-        {showHighlightMenu ? 'hide ' : 'show'} enhancement menu
+        {showHighlightMenu 
+        ? `${props.language && messages[props.language].hideMenu} ` 
+        : `${props.language && messages[props.language].showMenu} `
+        }
       </button>
 
       <section>
@@ -56,7 +60,8 @@ const WordsGoIn = (props) => {
 const mapStateToProps = (state) => {
    return {
        arrWords: state.inputTextData.words,
-       isLoading: state.inputTextData.isLoading
+       isLoading: state.inputTextData.isLoading,
+       language: state.userOptions.langInstruction
    }
 };
 

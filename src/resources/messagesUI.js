@@ -16,7 +16,11 @@ export const messages = {
     preposition: 'preposition',
     verb: 'verb',
     wWord: 'wWord',
-    prepositionTraining: 'Preposition Training'
+    prepositionTraining: 'Preposition Training',
+    submitText: 'submit text',
+    hideEnhancement: 'hide enhancement menu',
+    hideMenu: 'hide menu',
+    showMenu: 'show menu'
   },
 
   DE: {
@@ -36,12 +40,16 @@ export const messages = {
     preposition: 'Präposition',
     verb: 'Verb',
     wWord: 'W-Wort',
-    prepositionTraining: 'Präpositionstraining'
+    prepositionTraining: 'Präpositionstraining',
+    submitText: 'Text Absenden',
+    hideEnhancement: 'Erweiterungsmenü ausblenden',
+    hideMenu: 'Menü ausblenden',
+    showMenu: 'Menü anzeigen'
   },
 
   ES: {
     clearText: 'texto inequívoco',
-    login: 'Ingresar a',
+    login: 'Acceder',
     logout: 'Cierre de sesión',
     next: 'siguiente',
     back: 'volverse atrás',
@@ -56,6 +64,10 @@ export const messages = {
     preposition: 'preposición',
     verb: 'Verbo',
     wWord: 'W-palabra',
-    prepositionTraining: 'entrenamiento de preposición'
+    prepositionTraining: 'entrenamiento de preposición',
+    submitText: 'enviar el texto',
+    hideEnhancement: 'esconder el menú de mejora',
+    hideMenu: 'ocultar el menú',
+    showMenu: 'mostrar menú'
   }
 }
