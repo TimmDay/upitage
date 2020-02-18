@@ -1,7 +1,3 @@
-you must start the server AND the frontend
-yarn start (server)
-yarn run dev-server (frontend)
-
 
 # :hamburger: UPITAGE :bento:
 Learn Language Relevantly!
@@ -17,6 +13,9 @@ You can view a live demo of this project
 ## Getting Started :grapes:
 You will need to obtain your own API keys and insert them into the code to be able to build your own version.
 
+After that, you must start the server AND the frontend
+yarn start (server)
+yarn run dev-server (frontend)
 ### Prerequisites for own build :chocolate_bar:
 You will need to get your own API key for google firebase authentication.
 
