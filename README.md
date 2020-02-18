@@ -20,7 +20,7 @@ https://winkjs.org/wink-tokenizer/index.html
 
 
 
-# :hamburger: Langevant :bento:
+# :hamburger: UPITAGE :bento:
 Learn Language Relevantly!
 Practice the language you want to learn, by inputting language samples from the REAL WORLD to train with.
 
