@@ -2,27 +2,10 @@ you must start the server AND the frontend
 yarn start (server)
 yarn run dev-server (frontend)
 
-TEST
-node src/utils/POS/stanford-pos-english
-
-// for POS tagging. java jar wrapper for standford pos tagger
-// support for english and german (wink only hsa english)
-https://www.npmjs.com/package/stanford-postagger
-
-// for Sentence Segmentation - wink utils
-// has english and germn
-// also some other utils that might be useful
-// demo box in link is nice for testing
-https://npm.runkit.com/wink-nlp-utils
-https://winkjs.org/wink-tokenizer/index.html
-
-<!-- https://www.npmjs.com/package/natural#tokenizers -->
-
-
 
 # :hamburger: UPITAGE :bento:
 Learn Language Relevantly!
-Practice the language you want to learn, by inputting language samples from the REAL WORLD to train with.
+Practice the language you want to learn, by selecting your own language samples from the REAL WORLD to read, enhance and interact with.
 
 Learn German by completing exercises based on text from the latest Bundesliga report, or todays news from Deutsche Welle.
 Learn English by finding the prepositions in the simplest sentences of your University course guidelines.
@@ -71,6 +54,9 @@ google firebase authentication
 ## Authors: :spaghetti:
 Tim Day
 
+## Testing
+node src/utils/POS/stanford-pos-english
+
 ## Docs for 3rd parties :birthday:
 
 #### country flag images
@@ -87,6 +73,15 @@ https://www.countryflags.com/en/vector-overview/
 #### systran english dictionary lookup
 https://www.programmableweb.com/api/systran-dictionary
 
+#### POS tagging. 
+java jar wrapper for standford pos tagger
+current support for english and german (wink only hsa english)
+https://www.npmjs.com/package/stanford-postagger
 
+#### Sentence Segmentation
+wink utils supports both english and german, and includes some other utils that can be useful
+https://npm.runkit.com/wink-nlp-utils
+https://winkjs.org/wink-tokenizer/index.html
 
+#### redux persist
 https://www.npmjs.com/package/redux-persist
